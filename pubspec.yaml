@@ -1,0 +1,33 @@
+name: teaching_car
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+environment:
+  sdk: ">=2.17.3 <3.0.0"
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  flutter_bloc: ^8.0.1
+  flutter_bluetooth_serial: ^0.3.2
+  equatable: ^2.0.3
+  get_it: ^7.2.0
+  tag_ui:
+    path: tag_ui
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^2.0.0
+
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+
+  
