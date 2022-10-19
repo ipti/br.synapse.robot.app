@@ -100,16 +100,17 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
           builder: (context, state) {
             return Column(
               children: [
-                Row(
+                Center(
+                    child: Row(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
-                      onPressed: cubit.limparComandos,
+                      onPressed: cubit.limparTodosComandos,
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
-                          Colors.yellow,
+                          Colors.red,
                         ),
                       ),
                       child: const Text('Limpar Comandos'),
@@ -126,7 +127,26 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
                       child: const Text('Enviar Comandos'),
                     ),
                   ],
-                ),
+                )),
+                Center(
+                    child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () => cubit.limparComando(
+                        listaComandos: state.icones,
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          Colors.orange,
+                        ),
+                      ),
+                      child: const Text('Apagar ultimo comando'),
+                    ),
+                  ],
+                )),
                 Expanded(
                   child: ListView.builder(
                     shrinkWrap: true,

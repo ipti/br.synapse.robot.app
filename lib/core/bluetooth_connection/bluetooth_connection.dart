@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+
 import 'package:teaching_car/core/bluetooth_connection/ibluetooth_connection.dart';
 
 class BlueToothConnection implements IBluetoothConnection {
@@ -18,16 +20,19 @@ class BlueToothConnection implements IBluetoothConnection {
   void enviarComandosLista({
     required List<String> listaComandos,
   }) async {
-    final dataFormatada = 's ${listaComandos.join(' ')}';
-    final connection = await BluetoothConnection.toAddress(
-      savedDevice.address,
-    );
-
-    connection.output.add(
-      ascii.encode(dataFormatada),
-    );
-    await connection.output.allSent;
-    connection.close();
+    try {
+      final dataFormatada = 's ${listaComandos.join(' ')}';
+      final connection = await BluetoothConnection.toAddress(
+        savedDevice.address,
+      );
+      connection.output.add(
+        ascii.encode(dataFormatada),
+      );
+      await connection.output.allSent;
+      connection.close();
+    } catch (exception) {
+      log("Não foi possivel enviar comandos para esse dispositivo");
+    }
   }
 
   @override

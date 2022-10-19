@@ -14,6 +14,11 @@ abstract class AcaoCarrinhoState extends Equatable {
 class AcaoCarrinhoInitial extends AcaoCarrinhoState {
   const AcaoCarrinhoInitial({required super.icones});
 }
+
 class AcaoCarrinhoAcaoAdicionada extends AcaoCarrinhoState {
   const AcaoCarrinhoAcaoAdicionada({required super.icones});
+}
+
+class AcaoCarrinhoApagarUltimo extends AcaoCarrinhoState {
+  const AcaoCarrinhoApagarUltimo({required super.icones});
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,11 +49,21 @@ class AcaoCarrinhoCubit extends Cubit<AcaoCarrinhoState> {
     );
   }
 
-  void limparComandos() {
+  void limparTodosComandos() {
     emit(
       const AcaoCarrinhoInitial(
         icones: [],
       ),
     );
+  }
+
+  void limparComando({required List<IconData> listaComandos}) {
+    if (listaComandos.isNotEmpty) {
+      listaComandos.removeLast();
+      emit(AcaoCarrinhoApagarUltimo(icones: listaComandos));
+      emit(AcaoCarrinhoAcaoAdicionada(icones: listaComandos));
+    } else {
+      log("Lista vazia");
+    }
   }
 }

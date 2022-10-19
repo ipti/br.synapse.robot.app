@@ -46,17 +46,17 @@ class _ProcurarDispositivoPageState extends State<ProcurarDispositivoPage> {
               itemCount: state.dispositivos.length,
               itemBuilder: (context, index) {
                 final dispositivo = state.dispositivos[index];
-                return ListTile(
-                  title: Text(
-                    dispositivo.device.address,
-                  ),
-                  subtitle: Text(dispositivo.device.name ?? 'Sem nome'),
-                  onTap: () {
-                    cubit.conectarDispositivo(
-                      device: dispositivo.device,
-                    );
-                  },
-                );
+                  return ListTile(
+                    title: Text(
+                      dispositivo.device.name ?? 'Sem nome',
+                    ),
+                    subtitle: Text(dispositivo.device.address),
+                    onTap: () {
+                      cubit.conectarDispositivo(
+                        device: dispositivo.device,
+                      );
+                    },
+                  );
               },
             );
           } else if (state is ProcurarDispositivoConectado) {
