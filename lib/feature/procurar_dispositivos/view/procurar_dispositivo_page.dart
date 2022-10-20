@@ -39,13 +39,17 @@ class _ProcurarDispositivoPageState extends State<ProcurarDispositivoPage> {
           ),
         ),
       ),
-      body: BlocBuilder<ProcurarDispositivoCubit, ProcurarDispositivoState>(
-        builder: (context, state) {
-          if (state is ProcurarDispositivoCarregados) {
-            return ListView.builder(
-              itemCount: state.dispositivos.length,
-              itemBuilder: (context, index) {
-                final dispositivo = state.dispositivos[index];
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 24,
+        ),
+        child: BlocBuilder<ProcurarDispositivoCubit, ProcurarDispositivoState>(
+          builder: (context, state) {
+            if (state is ProcurarDispositivoCarregados) {
+              return ListView.builder(
+                itemCount: state.dispositivos.length,
+                itemBuilder: (context, index) {
+                  final dispositivo = state.dispositivos[index];
                   return ListTile(
                     title: Text(
                       dispositivo.device.name ?? 'Sem nome',
@@ -57,44 +61,45 @@ class _ProcurarDispositivoPageState extends State<ProcurarDispositivoPage> {
                       );
                     },
                   );
-              },
-            );
-          } else if (state is ProcurarDispositivoConectado) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Dispositivo conectado. Já pode começar a controlar o carrinho!',
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    ElevatedButton(
-                      onPressed: () => cubit.desconectarDispositivo(
-                        device: state.device,
+                },
+              );
+            } else if (state is ProcurarDispositivoConectado) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Dispositivo conectado. Já pode começar a controlar o carrinho!',
                       ),
-                      child: const Text('Desconectar'),
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      ElevatedButton(
+                        onPressed: () => cubit.desconectarDispositivo(
+                          device: state.device,
+                        ),
+                        child: const Text('Desconectar'),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          } else if (state is ProcurarDispositivoAguardandoConectar) {
-            return const Center(
-              child: Text('Estamos conectando ao dispositivo.'),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+              );
+            } else if (state is ProcurarDispositivoAguardandoConectar) {
+              return const Center(
+                child: Text('Estamos conectando ao dispositivo.'),
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
       ),
     );
   }

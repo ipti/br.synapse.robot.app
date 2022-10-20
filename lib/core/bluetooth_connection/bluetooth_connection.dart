@@ -32,6 +32,7 @@ class BlueToothConnection implements IBluetoothConnection {
       connection.close();
     } catch (exception) {
       log("Não foi possivel enviar comandos para esse dispositivo");
+      //buscar a partir daqui colocar um BlocConsumer
     }
   }
 

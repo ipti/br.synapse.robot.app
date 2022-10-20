@@ -1,4 +1,5 @@
 part of 'acao_carrinho_cubit.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 
 abstract class AcaoCarrinhoState extends Equatable {
   const AcaoCarrinhoState({
@@ -6,9 +7,10 @@ abstract class AcaoCarrinhoState extends Equatable {
   });
   final List<IconData> icones;
   @override
-  List<Object> get props => [
-        icones,
-      ];
+  List<Object> get props => [icones];
+
+  @override
+  bool get stringify => true;
 }
 
 class AcaoCarrinhoInitial extends AcaoCarrinhoState {
@@ -21,4 +23,18 @@ class AcaoCarrinhoAcaoAdicionada extends AcaoCarrinhoState {
 
 class AcaoCarrinhoApagarUltimo extends AcaoCarrinhoState {
   const AcaoCarrinhoApagarUltimo({required super.icones});
+  @override
+  List<Object> get props => [icones];
+
+  @override
+  bool get stringify => true;
+}
+
+class AcaoCarrinhoVazio extends AcaoCarrinhoState {
+  const AcaoCarrinhoVazio({super.icones = const []});
+  @override
+  List<Object> get props => [icones];
+
+  @override
+  bool get stringify => true;
 }

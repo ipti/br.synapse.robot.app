@@ -96,7 +96,15 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
         padding: const EdgeInsets.symmetric(
           horizontal: 24,
         ),
-        child: BlocBuilder<AcaoCarrinhoCubit, AcaoCarrinhoState>(
+        child: BlocConsumer<AcaoCarrinhoCubit, AcaoCarrinhoState>(
+          listener: (context, state) {
+            if (state is AcaoCarrinhoVazio) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text("Lista vazia"),
+                duration: Duration(seconds: 2),
+              ));
+            }
+          },
           builder: (context, state) {
             return Column(
               children: [

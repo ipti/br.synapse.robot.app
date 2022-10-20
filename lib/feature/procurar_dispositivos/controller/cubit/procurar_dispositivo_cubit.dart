@@ -23,7 +23,6 @@ class ProcurarDispositivoCubit extends Cubit<ProcurarDispositivoState> {
     result.listen((r) {
       final existingIndex = results
           .indexWhere((element) => element.device.address == r.device.address);
-
       if (existingIndex >= 0) {
         results[existingIndex] = r;
         emit(
