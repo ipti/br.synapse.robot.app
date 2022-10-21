@@ -17,23 +17,18 @@ class BlueToothConnection implements IBluetoothConnection {
   }
 
   @override
-  void enviarComandosLista({
+  Future<void> enviarComandosLista({
     required List<String> listaComandos,
   }) async {
-    try {
-      final dataFormatada = 's ${listaComandos.join(' ')}';
-      final connection = await BluetoothConnection.toAddress(
-        savedDevice.address,
-      );
-      connection.output.add(
-        ascii.encode(dataFormatada),
-      );
-      await connection.output.allSent;
-      connection.close();
-    } catch (exception) {
-      log("Não foi possivel enviar comandos para esse dispositivo");
-      //buscar a partir daqui colocar um BlocConsumer
-    }
+    final dataFormatada = 's ${listaComandos.join(' ')}';
+    final connection = await BluetoothConnection.toAddress(
+      savedDevice.address,
+    );
+    connection.output.add(
+      ascii.encode(dataFormatada),
+    );
+    await connection.output.allSent;
+    connection.close();
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +31,7 @@ class AcaoCarrinhoCubit extends Cubit<AcaoCarrinhoState> {
     );
   }
 
-  void enviarComands({required List<IconData> listaComandos}) {
+  void enviarComands({required List<IconData> listaComandos}) async {
     List<String> listaComandosString = [];
     for (IconData icons in listaComandos) {
       if (icons == Icons.arrow_back) {
@@ -42,9 +44,12 @@ class AcaoCarrinhoCubit extends Cubit<AcaoCarrinhoState> {
         listaComandosString.add('r');
       }
     }
-    _acaoCarrinhoService.enviarComandos(
-      listaComandos: listaComandosString.reversed.toList(),
-    );
+
+    _acaoCarrinhoService
+        .enviarComandos(
+          listaComandos: listaComandosString.reversed.toList(),
+        )
+        .catchError((error) => emit(const AcaoCarrinhobloqueada()));
   }
 
   void limparTodosComandos() {

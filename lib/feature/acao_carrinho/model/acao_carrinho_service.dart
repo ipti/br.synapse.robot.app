@@ -5,10 +5,10 @@ class AcaoCarrinhoService {
 
   AcaoCarrinhoService(this._iBluetoothConnection);
 
-  void enviarComandos({
+  Future<void> enviarComandos({
     required List<String> listaComandos,
-  }) {
-    _iBluetoothConnection.enviarComandosLista(
+  }) async {
+    await _iBluetoothConnection.enviarComandosLista(
       listaComandos: listaComandos,
     );
   }

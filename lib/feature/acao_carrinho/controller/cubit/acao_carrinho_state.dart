@@ -21,6 +21,10 @@ class AcaoCarrinhoAcaoAdicionada extends AcaoCarrinhoState {
   const AcaoCarrinhoAcaoAdicionada({required super.icones});
 }
 
+class AcaoCarrinhobloqueada extends AcaoCarrinhoState {
+  const AcaoCarrinhobloqueada({super.icones = const []});
+}
+
 class AcaoCarrinhoApagarUltimo extends AcaoCarrinhoState {
   const AcaoCarrinhoApagarUltimo({required super.icones});
   @override

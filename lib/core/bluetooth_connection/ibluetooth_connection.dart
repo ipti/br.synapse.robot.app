@@ -4,7 +4,7 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 abstract class IBluetoothConnection {
   Stream<BluetoothDiscoveryResult> escanearPorDispositivos();
-  void enviarComandosLista({
+  Future<void> enviarComandosLista({
     required List<String> listaComandos,
   });
   Future<void> desconectarDispositivo({required BluetoothDevice device});

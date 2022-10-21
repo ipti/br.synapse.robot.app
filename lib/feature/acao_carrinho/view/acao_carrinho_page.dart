@@ -104,6 +104,12 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
                 duration: Duration(seconds: 2),
               ));
             }
+            if (state is AcaoCarrinhobloqueada) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text("Não foi possível conectar com esse dispositivo"),
+                duration: Duration(seconds: 2),
+              ));
+            }
           },
           builder: (context, state) {
             return Column(
