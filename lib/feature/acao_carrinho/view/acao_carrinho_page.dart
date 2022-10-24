@@ -4,6 +4,7 @@ import 'package:tag_ui/tag_ui.dart';
 import 'package:teaching_car/core/menu_item_widget.dart';
 import 'package:teaching_car/core/widget/appbar_widget.dart';
 import 'package:teaching_car/feature/acao_carrinho/controller/cubit/acao_carrinho_cubit.dart';
+import 'package:teaching_car/feature/acao_carrinho/view/joystick.dart';
 
 class AcaoCarrinhoPage extends StatefulWidget {
   const AcaoCarrinhoPage({Key? key}) : super(key: key);
@@ -112,68 +113,81 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
             }
           },
           builder: (context, state) {
-            return Column(
-              children: [
-                Center(
-                    child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: cubit.limparTodosComandos,
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          Colors.red,
-                        ),
-                      ),
-                      child: const Text('Limpar Comandos'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => cubit.enviarComands(
-                        listaComandos: state.icones,
-                      ),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          Colors.green,
-                        ),
-                      ),
-                      child: const Text('Enviar Comandos'),
-                    ),
-                  ],
-                )),
-                Center(
-                    child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => cubit.limparComando(
-                        listaComandos: state.icones,
-                      ),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          Colors.orange,
-                        ),
-                      ),
-                      child: const Text('Apagar ultimo comando'),
-                    ),
-                  ],
-                )),
-                Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.icones.length,
-                    itemBuilder: (context, index) {
-                      return Icon(
-                        state.icones[state.icones.length - index - 1],
-                      );
-                    },
-                  ),
-                ),
-              ],
+            return Scaffold(
+              body: Container(
+                color: const Color(0xFF2D2F41),
+                alignment: Alignment.center,
+                child: const Joystick(),
+              ),
             );
+            //  Column(
+            //     children: [
+            //       Center(
+            //           child: Row(
+            //         mainAxisSize: MainAxisSize.max,
+            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //         children: [
+            //           ElevatedButton(
+            //             onPressed: cubit.limparTodosComandos,
+            //             style: ButtonStyle(
+            //               backgroundColor: MaterialStateProperty.all(
+            //                 Colors.red,
+            //               ),
+            //             ),
+            //             child: const Text('Limpar Comandos'),
+            //           ),
+            //           ElevatedButton(
+            //             onPressed: () => cubit.enviarComands(
+            //               listaComandos: state.icones,
+            //             ),
+            //             style: ButtonStyle(
+            //               backgroundColor: MaterialStateProperty.all(
+            //                 Colors.green,
+            //               ),
+            //             ),
+            //             child: const Text('Enviar Comandos'),
+            //           ),
+            //         ],
+            //       )),
+            //       Center(
+            //           child: Column(
+            //         mainAxisSize: MainAxisSize.max,
+            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //         children: [
+            //           ElevatedButton(
+            //             onPressed: () => cubit.limparComando(
+            //               listaComandos: state.icones,
+            //             ),
+            //             style: ButtonStyle(
+            //               backgroundColor: MaterialStateProperty.all(
+            //                 Colors.orange,
+            //               ),
+            //             ),
+            //             child: const Text('Apagar ultimo comando'),
+            //           ),
+            //         ],
+            //       )),
+            //       Expanded(
+            //         child: ListView.builder(
+            //           shrinkWrap: true,
+            //           itemCount: state.icones.length,
+            //           itemBuilder: (context, index) {
+            //             return Icon(
+            //               state.icones[state.icones.length - index - 1],
+            //             );
+            //           },
+            //         ),
+            //       ),
+            //       Container(
+            //         color: const Color(0xFF2D2F41),
+            //         alignment: Alignment.center,
+
+            //         //child: const Joystick(),
+            //       ),
+            //     ],
+            //   );
           },
         ),
       ),
