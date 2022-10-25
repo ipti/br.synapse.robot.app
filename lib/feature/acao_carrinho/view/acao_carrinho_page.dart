@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tag_ui/tag_ui.dart';
 import 'package:teaching_car/core/menu_item_widget.dart';
 import 'package:teaching_car/core/widget/appbar_widget.dart';
+import 'package:teaching_car/core/widget/joystick.dart';
 import 'package:teaching_car/feature/acao_carrinho/controller/cubit/acao_carrinho_cubit.dart';
-import 'package:teaching_car/feature/acao_carrinho/view/joystick.dart';
 
 class AcaoCarrinhoPage extends StatefulWidget {
   const AcaoCarrinhoPage({Key? key}) : super(key: key);
@@ -98,98 +98,65 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
           horizontal: 24,
         ),
         child: BlocConsumer<AcaoCarrinhoCubit, AcaoCarrinhoState>(
-          listener: (context, state) {
-            if (state is AcaoCarrinhoVazio) {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text("Lista vazia"),
-                duration: Duration(seconds: 2),
-              ));
-            }
-            if (state is AcaoCarrinhobloqueada) {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text("Não foi possível conectar com esse dispositivo"),
-                duration: Duration(seconds: 2),
-              ));
-            }
-          },
-          builder: (context, state) {
-            return Scaffold(
-              body: Container(
-                color: const Color(0xFF2D2F41),
-                alignment: Alignment.center,
-                child: const Joystick(),
+            listener: (context, state) {
+          if (state is AcaoCarrinhoVazio) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Lista vazia"),
+              duration: Duration(seconds: 2),
+            ));
+          }
+          if (state is AcaoCarrinhobloqueada) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Não foi possível conectar com esse dispositivo"),
+              duration: Duration(seconds: 2),
+            ));
+          }
+        }, builder: (context, state) {
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: state.icones.length,
+                  itemBuilder: (context, index) {
+                    return Icon(
+                      state.icones[state.icones.length - index - 1],
+                    );
+                  },
+                ),
               ),
-            );
-            //  Column(
-            //     children: [
-            //       Center(
-            //           child: Row(
-            //         mainAxisSize: MainAxisSize.max,
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //         children: [
-            //           ElevatedButton(
-            //             onPressed: cubit.limparTodosComandos,
-            //             style: ButtonStyle(
-            //               backgroundColor: MaterialStateProperty.all(
-            //                 Colors.red,
-            //               ),
-            //             ),
-            //             child: const Text('Limpar Comandos'),
-            //           ),
-            //           ElevatedButton(
-            //             onPressed: () => cubit.enviarComands(
-            //               listaComandos: state.icones,
-            //             ),
-            //             style: ButtonStyle(
-            //               backgroundColor: MaterialStateProperty.all(
-            //                 Colors.green,
-            //               ),
-            //             ),
-            //             child: const Text('Enviar Comandos'),
-            //           ),
-            //         ],
-            //       )),
-            //       Center(
-            //           child: Column(
-            //         mainAxisSize: MainAxisSize.max,
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //         children: [
-            //           ElevatedButton(
-            //             onPressed: () => cubit.limparComando(
-            //               listaComandos: state.icones,
-            //             ),
-            //             style: ButtonStyle(
-            //               backgroundColor: MaterialStateProperty.all(
-            //                 Colors.orange,
-            //               ),
-            //             ),
-            //             child: const Text('Apagar ultimo comando'),
-            //           ),
-            //         ],
-            //       )),
-            //       Expanded(
-            //         child: ListView.builder(
-            //           shrinkWrap: true,
-            //           itemCount: state.icones.length,
-            //           itemBuilder: (context, index) {
-            //             return Icon(
-            //               state.icones[state.icones.length - index - 1],
-            //             );
-            //           },
-            //         ),
-            //       ),
-            //       Container(
-            //         color: const Color(0xFF2D2F41),
-            //         alignment: Alignment.center,
-
-            //         //child: const Joystick(),
-            //       ),
-            //     ],
-            //   );
-          },
-        ),
+              Joystick(
+                sizeIcon: 50,
+                size: 150,
+                isDraggable: true,
+                iconColor: const Color(0x9CFFFFFF),
+                backgroundColor: const Color(0xA10A1745),
+                opacity: 0.7,
+                joystickMode: JoystickModes.all,
+                onUpPressed: () {
+                  cubit.adicionarComandos(
+                    icone: Icons.arrow_forward,
+                  );
+                },
+                onLeftPressed: () {
+                  cubit.adicionarComandos(
+                    icone: Icons.arrow_back,
+                  );
+                },
+                onRightPressed: () {
+                  cubit.adicionarComandos(
+                    icone: Icons.arrow_upward,
+                  );
+                },
+                onDownPressed: () {
+                  cubit.adicionarComandos(
+                    icone: Icons.arrow_downward,
+                  );
+                },
+              )
+            ],
+          );
+        }),
       ),
     );
   }

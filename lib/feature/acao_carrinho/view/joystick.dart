@@ -12,7 +12,7 @@ class Joystick extends StatefulWidget {
 class _JoystickState extends State<Joystick> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 30,
       height: 30,
       child: CustomPaint(
@@ -30,7 +30,7 @@ class JoystickPainter extends CustomPainter {
     var center = Offset(centerX, centerY);
     var radius = min(centerX, centerY);
 
-    var fillBrush = Paint()..color = const Color(0xFF444974);
+    var fillBrush = Paint()..color = const Color(0xffd2d0be);
 
     canvas.drawCircle(center, radius - 40, fillBrush);
   }
