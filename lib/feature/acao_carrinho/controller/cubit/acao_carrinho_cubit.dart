@@ -1,5 +1,3 @@
-
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +27,19 @@ class AcaoCarrinhoCubit extends Cubit<AcaoCarrinhoState> {
         icones: novaLista,
       ),
     );
+  }
+
+  void removerComandos(
+      {required List<IconData> listaComandos, required int index}) {
+    if (listaComandos.isNotEmpty) {
+      listaComandos.removeAt(index);
+      emit(AcaoCarrinhoApagarUltimo(icones: listaComandos));
+      emit(AcaoCarrinhoInitial(icones: listaComandos));
+    }
+    if (listaComandos.isEmpty) {
+      emit(const AcaoCarrinhoVazio());
+      emit(const AcaoCarrinhoInitial(icones: []));
+    } else {}
   }
 
   void enviarComands({required List<IconData> listaComandos}) async {

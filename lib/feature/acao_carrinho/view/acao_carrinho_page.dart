@@ -24,66 +24,6 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (value) {
-          switch (value) {
-            case 0:
-              cubit.adicionarComandos(
-                icone: Icons.arrow_back,
-              );
-              break;
-            case 1:
-              cubit.adicionarComandos(
-                icone: Icons.arrow_downward,
-              );
-              break;
-            case 2:
-              cubit.adicionarComandos(
-                icone: Icons.arrow_upward,
-              );
-              break;
-            case 3:
-              cubit.adicionarComandos(
-                icone: Icons.arrow_forward,
-              );
-          }
-        },
-        type: BottomNavigationBarType.fixed,
-        selectedFontSize: 14,
-        unselectedFontSize: 14,
-        selectedItemColor: TagColors.colorBaseProductDark,
-        unselectedItemColor: TagColors.colorBaseProductDark,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.arrow_back,
-              color: TagColors.colorBaseProductDark,
-            ),
-            label: 'Esquerda',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.arrow_downward,
-              color: TagColors.colorBaseProductDark,
-            ),
-            label: 'Baixo',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.arrow_upward,
-              color: TagColors.colorBaseProductDark,
-            ),
-            label: 'Cima',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.arrow_forward,
-              color: TagColors.colorBaseProductDark,
-            ),
-            label: 'Direita',
-          ),
-        ],
-      ),
       drawer: const MenuItemWidget(),
       appBar: const AppBarWidget(
         title: Text(
@@ -112,50 +52,102 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
             ));
           }
         }, builder: (context, state) {
-          return Column(
+          return Center(
+              child: Column(
             children: [
+              Column(
+                children: [
+                  Container(
+                    color: const Color.fromARGB(255, 0, 0, 0),
+                    width: 370,
+                    height: 300,
+                    alignment: Alignment.center,
+                    child: Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: state.icones.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onLongPress: () {
+                              cubit.removerComandos(
+                                  listaComandos: state.icones, index: index);
+                            },
+                            child: Container(
+                              width: 75,
+                              height: 70,
+                              alignment: Alignment.center,
+                              margin: const EdgeInsets.symmetric(horizontal: 2),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              decoration: BoxDecoration(
+                                color: const Color(0xBD2918F1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Icon(
+                                state.icones[state.icones.length - index - 1],
+                                color: const Color(0x9CE2E1EF),
+                                size: 64,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: state.icones.length,
-                  itemBuilder: (context, index) {
-                    return Icon(
-                      state.icones[state.icones.length - index - 1],
+                child: Joystick(
+                  sizeIcon: 50,
+                  size: 150,
+                  isDraggable: true,
+                  iconColor: const Color(0x9CFFFFFF),
+                  backgroundColor: const Color(0xA10A1745),
+                  opacity: 0.7,
+                  joystickMode: JoystickModes.all,
+                  onUpPressed: () {
+                    cubit.adicionarComandos(
+                        icone: Icons.keyboard_arrow_up_rounded);
+                  },
+                  onLeftPressed: () {
+                    cubit.adicionarComandos(
+                      icone: Icons.keyboard_arrow_left_rounded,
+                    );
+                  },
+                  onRightPressed: () {
+                    cubit.adicionarComandos(
+                        icone: Icons.keyboard_arrow_right_rounded);
+                  },
+                  onDownPressed: () {
+                    cubit.adicionarComandos(
+                      icone: Icons.keyboard_arrow_down_rounded,
                     );
                   },
                 ),
               ),
-              Joystick(
-                sizeIcon: 50,
-                size: 150,
-                isDraggable: true,
-                iconColor: const Color(0x9CFFFFFF),
-                backgroundColor: const Color(0xA10A1745),
-                opacity: 0.7,
-                joystickMode: JoystickModes.all,
-                onUpPressed: () {
-                  cubit.adicionarComandos(
-                    icone: Icons.arrow_forward,
-                  );
-                },
-                onLeftPressed: () {
-                  cubit.adicionarComandos(
-                    icone: Icons.arrow_back,
-                  );
-                },
-                onRightPressed: () {
-                  cubit.adicionarComandos(
-                    icone: Icons.arrow_upward,
-                  );
-                },
-                onDownPressed: () {
-                  cubit.adicionarComandos(
-                    icone: Icons.arrow_downward,
-                  );
-                },
-              )
+              Expanded(
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () => cubit.enviarComands(
+                        listaComandos: state.icones,
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          Colors.green,
+                        ),
+                      ),
+                      child: const Text('Enviar Comandos'),
+                    ),
+                  ],
+                ),
+              ),
             ],
-          );
+          ));
         }),
       ),
     );
