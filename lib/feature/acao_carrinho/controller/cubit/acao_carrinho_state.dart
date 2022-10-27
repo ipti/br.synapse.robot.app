@@ -34,6 +34,15 @@ class AcaoCarrinhoApagarUltimo extends AcaoCarrinhoState {
   bool get stringify => true;
 }
 
+class AcaoCarrinhoApagar extends AcaoCarrinhoState {
+  const AcaoCarrinhoApagar({required super.icones});
+  @override
+  List<Object> get props => [icones];
+
+  @override
+  bool get stringify => true;
+}
+
 class AcaoCarrinhoVazio extends AcaoCarrinhoState {
   const AcaoCarrinhoVazio({super.icones = const []});
   @override

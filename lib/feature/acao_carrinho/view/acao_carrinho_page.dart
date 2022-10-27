@@ -33,123 +33,150 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 24,
-        ),
-        child: BlocConsumer<AcaoCarrinhoCubit, AcaoCarrinhoState>(
-            listener: (context, state) {
-          if (state is AcaoCarrinhoVazio) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("Lista vazia"),
-              duration: Duration(seconds: 2),
-            ));
-          }
-          if (state is AcaoCarrinhobloqueada) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("Não foi possível conectar com esse dispositivo"),
-              duration: Duration(seconds: 2),
-            ));
-          }
-        }, builder: (context, state) {
-          return Center(
-              child: Column(
-            children: [
-              Column(
-                children: [
-                  Container(
-                    color: const Color.fromARGB(255, 0, 0, 0),
-                    width: 370,
-                    height: 300,
-                    alignment: Alignment.center,
-                    child: Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: state.icones.length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onLongPress: () {
-                              cubit.removerComandos(
-                                  listaComandos: state.icones, index: index);
-                            },
-                            child: Container(
-                              width: 75,
-                              height: 70,
-                              alignment: Alignment.center,
-                              margin: const EdgeInsets.symmetric(horizontal: 2),
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8),
-                              decoration: BoxDecoration(
-                                color: const Color(0xBD2918F1),
+      body: BlocConsumer<AcaoCarrinhoCubit, AcaoCarrinhoState>(
+          listener: (context, state) {
+        if (state is AcaoCarrinhoVazio) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Lista vazia"),
+            duration: Duration(seconds: 2),
+          ));
+        }
+        if (state is AcaoCarrinhobloqueada) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Não foi possível conectar com esse dispositivo"),
+            duration: Duration(seconds: 2),
+          ));
+        }
+      }, builder: (context, state) {
+        return Center(
+            child: Container(
+                alignment: Alignment.center,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          'https://i.pinimg.com/564x/0a/09/df/0a09df17ffcb4b3723f8c03698eeeace.jpg')),
+                ),
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        IntrinsicHeight(
+                          child: Container(
+                            padding: const EdgeInsets.all(16),
+                            margin: const EdgeInsets.all(32),
+                            decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Icon(
-                                state.icones[state.icones.length - index - 1],
-                                color: const Color(0x9CE2E1EF),
-                                size: 64,
+                                gradient: const LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Color(0xFF9CE6FF),
+                                      Color(0xC3AC6AFF)
+                                    ])),
+                            width: 370,
+                            height: 300,
+                            child: Expanded(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: state.icones.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                      onLongPress: () {
+                                        cubit.removerComandos(
+                                            listaComandos: state.icones,
+                                            index: state.icones.length - 1);
+                                        print("page");
+                                        print(index);
+                                      },
+                                      child: Center(
+                                        child: Container(
+                                          width: 75,
+                                          height: 70,
+                                          alignment: Alignment.center,
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 2),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8),
+                                          decoration: BoxDecoration(
+                                            color: const Color(0xBD2918F1),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Icon(
+                                            state.icones[state.icones.length -
+                                                index -
+                                                1],
+                                            color: const Color(0xFFFFFFFF),
+                                            size: 64,
+                                          ),
+                                        ),
+                                      ));
+                                },
                               ),
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        )
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: Joystick(
-                  sizeIcon: 50,
-                  size: 150,
-                  isDraggable: true,
-                  iconColor: const Color(0x9CFFFFFF),
-                  backgroundColor: const Color(0xA10A1745),
-                  opacity: 0.7,
-                  joystickMode: JoystickModes.all,
-                  onUpPressed: () {
-                    cubit.adicionarComandos(
-                        icone: Icons.keyboard_arrow_up_rounded);
-                  },
-                  onLeftPressed: () {
-                    cubit.adicionarComandos(
-                      icone: Icons.keyboard_arrow_left_rounded,
-                    );
-                  },
-                  onRightPressed: () {
-                    cubit.adicionarComandos(
-                        icone: Icons.keyboard_arrow_right_rounded);
-                  },
-                  onDownPressed: () {
-                    cubit.adicionarComandos(
-                      icone: Icons.keyboard_arrow_down_rounded,
-                    );
-                  },
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => cubit.enviarComands(
-                        listaComandos: state.icones,
-                      ),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          Colors.green,
+                    Expanded(
+                      child: Center(
+                        child: Joystick(
+                          sizeIcon: 50,
+                          size: 150,
+                          isDraggable: false,
+                          iconColor: const Color(0x9CFFFFFF),
+                          backgroundColor: const Color(0xDA0A1745),
+                          opacity: 0.7,
+                          joystickMode: JoystickModes.all,
+                          onUpPressed: () {
+                            cubit.adicionarComandos(
+                                icone: Icons.keyboard_arrow_up_rounded);
+                          },
+                          onLeftPressed: () {
+                            cubit.adicionarComandos(
+                              icone: Icons.keyboard_arrow_left_rounded,
+                            );
+                          },
+                          onRightPressed: () {
+                            cubit.adicionarComandos(
+                                icone: Icons.keyboard_arrow_right_rounded);
+                          },
+                          onDownPressed: () {
+                            cubit.adicionarComandos(
+                              icone: Icons.keyboard_arrow_down_rounded,
+                            );
+                          },
                         ),
                       ),
-                      child: const Text('Enviar Comandos'),
+                    ),
+                    Container(
+                      alignment: Alignment.bottomCenter,
+                      height: 70,
+                      child: Expanded(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () => cubit.enviarComands(
+                                listaComandos: state.icones,
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                  const Color(0xFF3C40B8),
+                                ),
+                              ),
+                              child: const Text('Enviar Comandos'),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
-                ),
-              ),
-            ],
-          ));
-        }),
-      ),
+                )));
+      }),
     );
   }
 }
