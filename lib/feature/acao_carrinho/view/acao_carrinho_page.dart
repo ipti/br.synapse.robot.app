@@ -86,8 +86,6 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
                                         cubit.removerComandos(
                                             listaComandos: state.icones,
                                             index: state.icones.length - 1);
-                                        print("page");
-                                        print(index);
                                       },
                                       child: Center(
                                         child: Container(
@@ -119,40 +117,46 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
                         )
                       ],
                     ),
-                    Expanded(
-                      child: Center(
-                        child: Joystick(
-                          sizeIcon: 50,
-                          size: 150,
-                          isDraggable: false,
-                          iconColor: const Color(0x9CFFFFFF),
-                          backgroundColor: const Color(0xDA0A1745),
-                          opacity: 0.7,
-                          joystickMode: JoystickModes.all,
-                          onUpPressed: () {
-                            cubit.adicionarComandos(
-                                icone: Icons.keyboard_arrow_up_rounded);
-                          },
-                          onLeftPressed: () {
-                            cubit.adicionarComandos(
-                              icone: Icons.keyboard_arrow_left_rounded,
-                            );
-                          },
-                          onRightPressed: () {
-                            cubit.adicionarComandos(
-                                icone: Icons.keyboard_arrow_right_rounded);
-                          },
-                          onDownPressed: () {
-                            cubit.adicionarComandos(
-                              icone: Icons.keyboard_arrow_down_rounded,
-                            );
-                          },
+                    Container(
+                      margin: const EdgeInsets.all(16),
+                      // color: Colors.white,
+                      child: Expanded(
+                        child: Center(
+                          child: Joystick(
+                            sizeIcon: 50,
+                            size: 150,
+                            isDraggable: false,
+                            iconColor: const Color(0xFFFFFFFF),
+                            backgroundColor: const Color(0xDA0A1745),
+                            opacity: 0.95,
+                            joystickMode: JoystickModes.all,
+                            onUpPressed: () {
+                              cubit.adicionarComandos(
+                                  icone: Icons.keyboard_arrow_up_rounded);
+                            },
+                            onLeftPressed: () {
+                              cubit.adicionarComandos(
+                                icone: Icons.keyboard_arrow_left_rounded,
+                              );
+                            },
+                            onRightPressed: () {
+                              cubit.adicionarComandos(
+                                  icone: Icons.keyboard_arrow_right_rounded);
+                            },
+                            onDownPressed: () {
+                              cubit.adicionarComandos(
+                                icone: Icons.keyboard_arrow_down_rounded,
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
                     Container(
                       alignment: Alignment.bottomCenter,
-                      height: 70,
+                      height: 50,
+                      margin: const EdgeInsets.all(16),
+                      // color: Colors.white,
                       child: Expanded(
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -164,9 +168,19 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
                                 listaComandos: state.icones,
                               ),
                               style: ButtonStyle(
+                                minimumSize: MaterialStateProperty.all(
+                                    const Size(200, 50)),
+                                shadowColor: MaterialStateProperty.all(
+                                    const Color(0xFF757575)),
                                 backgroundColor: MaterialStateProperty.all(
                                   const Color(0xFF3C40B8),
                                 ),
+                                textStyle: MaterialStateProperty.all(
+                                  const TextStyle(fontSize: 20),
+                                ),
+                                overlayColor: MaterialStateProperty.all(
+                                    const Color(0xFF1E216B)),
+                                elevation: MaterialStateProperty.all(5),
                               ),
                               child: const Text('Enviar Comandos'),
                             ),

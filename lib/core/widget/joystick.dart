@@ -50,10 +50,11 @@ class _JoystickState extends State<Joystick> {
           height: widget.size,
           width: widget.size,
           decoration: BoxDecoration(
-              color: widget.backgroundColor
-                      ?.withOpacity(widget.opacity ?? 1) ??
-                  Colors.grey.withOpacity(widget.opacity ?? 1),
-              shape: BoxShape.circle),
+            color: widget.backgroundColor?.withOpacity(widget.opacity ?? 1) ??
+                Colors.grey.withOpacity(widget.opacity ?? 1),
+            border: Border.all(),
+            shape: BoxShape.circle,
+          ),
           child: Column(children: [
             // up
             Expanded(
