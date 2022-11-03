@@ -15,6 +15,7 @@ class AcaoCarrinhoPage extends StatefulWidget {
 
 class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
   late AcaoCarrinhoCubit cubit;
+  ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     cubit = context.read<AcaoCarrinhoCubit>();
@@ -78,6 +79,8 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
                             child: Expanded(
                               child: ListView.builder(
                                 shrinkWrap: true,
+                                
+                                controller: _scrollController,
                                 scrollDirection: Axis.horizontal,
                                 itemCount: state.icones.length,
                                 itemBuilder: (context, index) {
@@ -91,7 +94,7 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
                                         child: Container(
                                           width: 75,
                                           height: 70,
-                                          alignment: Alignment.center,
+                                          alignment: Alignment.topCenter,
                                           margin: const EdgeInsets.symmetric(
                                               horizontal: 2),
                                           padding: const EdgeInsets.symmetric(
@@ -118,8 +121,8 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
                       ],
                     ),
                     Container(
-                      margin: const EdgeInsets.all(16),
-                      // color: Colors.white,
+                      margin: const EdgeInsets.all(4),
+                      //color: Colors.white,
                       child: Expanded(
                         child: Center(
                           child: Joystick(
@@ -131,19 +134,36 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
                             opacity: 0.95,
                             joystickMode: JoystickModes.all,
                             onUpPressed: () {
+                              _scrollController.animateTo(
+                                  _scrollController.position.maxScrollExtent,
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.easeOut);
+
                               cubit.adicionarComandos(
                                   icone: Icons.keyboard_arrow_up_rounded);
                             },
                             onLeftPressed: () {
+                              _scrollController.animateTo(
+                                  _scrollController.position.maxScrollExtent,
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.easeOut);
                               cubit.adicionarComandos(
                                 icone: Icons.keyboard_arrow_left_rounded,
                               );
                             },
                             onRightPressed: () {
+                              _scrollController.animateTo(
+                                  _scrollController.position.maxScrollExtent,
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.easeOut);
                               cubit.adicionarComandos(
                                   icone: Icons.keyboard_arrow_right_rounded);
                             },
                             onDownPressed: () {
+                              _scrollController.animateTo(
+                                  _scrollController.position.maxScrollExtent,
+                                  duration: const Duration(milliseconds: 200),
+                                  curve: Curves.easeOut);
                               cubit.adicionarComandos(
                                 icone: Icons.keyboard_arrow_down_rounded,
                               );
@@ -154,7 +174,8 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
                     ),
                     Container(
                       alignment: Alignment.bottomCenter,
-                      height: 50,
+                      //color: Colors.amber,
+                      height: 40,
                       margin: const EdgeInsets.all(16),
                       // color: Colors.white,
                       child: Expanded(
