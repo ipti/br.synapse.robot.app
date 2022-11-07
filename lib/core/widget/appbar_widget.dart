@@ -9,7 +9,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSize {
   @override
   Widget build(BuildContext context) {
     const IconThemeData iconTheme = IconThemeData(
-      color: TagColors.colorBaseProductDark,
+      color: Color.fromARGB(255, 255, 255, 255),
       size: 24,
     );
 
@@ -19,7 +19,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSize {
       elevation: 0,
       centerTitle: true,
       title: title,
-      backgroundColor: TagColors.colorBaseWhiteNormal,
+      backgroundColor: Color.fromARGB(255, 19, 19, 20),
     );
   }
 

@@ -15,7 +15,7 @@ class AcaoCarrinhoPage extends StatefulWidget {
 
 class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
   late AcaoCarrinhoCubit cubit;
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     cubit = context.read<AcaoCarrinhoCubit>();
@@ -30,12 +30,18 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
         title: Text(
           'Início',
           style: TextStyle(
-            color: TagColors.colorBaseProductDark,
+            color: Color.fromARGB(255, 255, 255, 255),
           ),
         ),
       ),
       body: BlocConsumer<AcaoCarrinhoCubit, AcaoCarrinhoState>(
           listener: (context, state) {
+        if (state is AcaoCarrinhoAcaoAdicionada) {
+          _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent + 80,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeOut);
+        }
         if (state is AcaoCarrinhoVazio) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Lista vazia"),
@@ -55,7 +61,8 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: NetworkImage(
-                          'https://i.pinimg.com/564x/0a/09/df/0a09df17ffcb4b3723f8c03698eeeace.jpg')),
+                          'https://i.pinimg.com/564x/0a/09/df/0a09df17ffcb4b3723f8c03698eeeace.jpg'),
+                      fit: BoxFit.fitWidth),
                 ),
                 child: Column(
                   children: [
@@ -79,7 +86,6 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
                             child: Expanded(
                               child: ListView.builder(
                                 shrinkWrap: true,
-                                
                                 controller: _scrollController,
                                 scrollDirection: Axis.horizontal,
                                 itemCount: state.icones.length,
@@ -134,36 +140,19 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
                             opacity: 0.95,
                             joystickMode: JoystickModes.all,
                             onUpPressed: () {
-                              _scrollController.animateTo(
-                                  _scrollController.position.maxScrollExtent,
-                                  duration: const Duration(milliseconds: 200),
-                                  curve: Curves.easeOut);
-
                               cubit.adicionarComandos(
                                   icone: Icons.keyboard_arrow_up_rounded);
                             },
                             onLeftPressed: () {
-                              _scrollController.animateTo(
-                                  _scrollController.position.maxScrollExtent,
-                                  duration: const Duration(milliseconds: 200),
-                                  curve: Curves.easeOut);
                               cubit.adicionarComandos(
                                 icone: Icons.keyboard_arrow_left_rounded,
                               );
                             },
                             onRightPressed: () {
-                              _scrollController.animateTo(
-                                  _scrollController.position.maxScrollExtent,
-                                  duration: const Duration(milliseconds: 200),
-                                  curve: Curves.easeOut);
                               cubit.adicionarComandos(
                                   icone: Icons.keyboard_arrow_right_rounded);
                             },
                             onDownPressed: () {
-                              _scrollController.animateTo(
-                                  _scrollController.position.maxScrollExtent,
-                                  duration: const Duration(milliseconds: 200),
-                                  curve: Curves.easeOut);
                               cubit.adicionarComandos(
                                 icone: Icons.keyboard_arrow_down_rounded,
                               );

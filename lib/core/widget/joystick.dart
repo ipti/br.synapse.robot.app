@@ -54,6 +54,12 @@ class _JoystickState extends State<Joystick> {
                 Colors.grey.withOpacity(widget.opacity ?? 1),
             border: Border.all(),
             shape: BoxShape.circle,
+            boxShadow: const [
+              BoxShadow(
+                  color: Color.fromARGB(255, 134, 134, 134),
+                  blurRadius: 8,
+                  offset: Offset(0, 0))
+            ],
           ),
           child: Column(children: [
             // up
