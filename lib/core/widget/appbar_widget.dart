@@ -19,7 +19,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSize {
       elevation: 0,
       centerTitle: true,
       title: title,
-      backgroundColor: Color.fromARGB(255, 19, 19, 20),
+      backgroundColor: const Color.fromARGB(255, 19, 19, 20),
     );
   }
 

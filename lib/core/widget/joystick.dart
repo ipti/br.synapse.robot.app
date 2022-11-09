@@ -35,6 +35,7 @@ class Joystick extends StatefulWidget {
       this.onPressed})
       : assert(isDraggable != null);
   @override
+  // ignore: library_private_types_in_public_api
   _JoystickState createState() => _JoystickState();
 }
 
@@ -50,13 +51,20 @@ class _JoystickState extends State<Joystick> {
           height: widget.size,
           width: widget.size,
           decoration: BoxDecoration(
+            gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color.fromRGBO(88, 6, 162, 100),
+                  Color.fromRGBO(146, 32, 205, 100)
+                ]),
             color: widget.backgroundColor?.withOpacity(widget.opacity ?? 1) ??
                 Colors.grey.withOpacity(widget.opacity ?? 1),
-            border: Border.all(),
+            // border: Border.all(),
             shape: BoxShape.circle,
             boxShadow: const [
               BoxShadow(
-                  color: Color.fromARGB(255, 134, 134, 134),
+                  color: Color.fromARGB(255, 12, 11, 11),
                   blurRadius: 8,
                   offset: Offset(0, 0))
             ],

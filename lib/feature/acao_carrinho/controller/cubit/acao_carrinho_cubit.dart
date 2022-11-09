@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,16 +32,7 @@ class AcaoCarrinhoCubit extends Cubit<AcaoCarrinhoState> {
   void removerComandos(
       {required List<IconData> listaComandos, required int index}) {
     if (listaComandos.isNotEmpty) {
-      print(listaComandos);
-      print("cubit");
-      print(index);
-      print("cubit lista de comando index-1");
       listaComandos.removeAt(index - 1);
-      print(listaComandos);
-      print("cubit");
-      print(index);
-      print("cubit lista de comando index-1");
-      print(listaComandos[index - 1]);
       emit(AcaoCarrinhoApagarUltimo(icones: listaComandos));
       emit(AcaoCarrinhoInitial(icones: listaComandos));
     }

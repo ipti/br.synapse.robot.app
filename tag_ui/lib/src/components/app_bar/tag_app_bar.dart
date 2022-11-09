@@ -8,13 +8,13 @@ class TagAppBar extends StatelessWidget implements PreferredSize {
 
   @override
   Widget build(BuildContext context) {
-    final IconThemeData iconTheme = const IconThemeData(
+    const IconThemeData iconTheme = IconThemeData(
       color: TagColors.colorBaseProductDark,
       size: 24,
     );
 
     final Widget leading = new IconButton(
-      icon: new Icon(
+      icon: const Icon(
         Icons.menu,
         size: 24.0,
       ),
@@ -23,7 +23,7 @@ class TagAppBar extends StatelessWidget implements PreferredSize {
 
     final Widget centerTitle = Container(
       width: 54,
-      margin: EdgeInsets.all(14),
+      margin: const EdgeInsets.all(14),
       height: TagSizes.heightServiceLogoMedium,
       child: Center(
         child: title ?? const TagLogo(alignment: Alignment.centerLeft),
@@ -46,5 +46,5 @@ class TagAppBar extends StatelessWidget implements PreferredSize {
 
   @override
   Size get preferredSize =>
-      Size.fromHeight(TagSizes.heightServiceLogoMedium + 28);
+      const Size.fromHeight(TagSizes.heightServiceLogoMedium + 28);
 }
