@@ -40,20 +40,18 @@ class _LayoutPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Flexible(flex: 3, child: left ?? Container()),
-          Flexible(
-            flex: 9,
-            child: Padding(
-              padding: const EdgeInsets.all(32),
-              child: center,
-            ),
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Flexible(flex: 3, child: left ?? Container()),
+        Flexible(
+          flex: 9,
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: center,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

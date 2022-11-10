@@ -26,7 +26,7 @@ class _TagIconState extends State<TagIcon> {
         ? widget.disabledVersionPath
         : widget.defaultVersionPath;
     return Container(
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         maxHeight: TagSizes.heightIconLarge,
         maxWidth: TagSizes.widthIconLarge,
         minHeight: TagSizes.heightIconSmall,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ShowOnDesktop extends StatelessWidget {
-  ShowOnDesktop({Key? key, required this.child}) : super(key: key);
+  const ShowOnDesktop({Key? key, required this.child}) : super(key: key);
 
   final Widget child;
 

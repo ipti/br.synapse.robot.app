@@ -6,7 +6,7 @@ import 'package:tag_ui/src/components/shared/tag_input_decoration.dart';
 import 'package:tag_ui/tag_ui.dart';
 
 class TagDropdownField<T> extends StatefulWidget {
-  TagDropdownField({
+  const TagDropdownField({
     Key? key,
     this.hint,
     this.controller,

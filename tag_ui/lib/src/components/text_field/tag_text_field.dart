@@ -47,7 +47,7 @@ class TagTextField extends StatefulWidget {
 }
 
 class _TagTextFieldState extends State<TagTextField> {
-  final _debouncer = Debouncer(delay: Duration(milliseconds: 250));
+  final _debouncer = Debouncer(delay: const Duration(milliseconds: 250));
   void _onValueChanged(String value) {
     if (widget.onChanged != null) {
       _debouncer.call(() => widget.onChanged!(value));
@@ -68,7 +68,7 @@ class _TagTextFieldState extends State<TagTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(
+    const textStyle = TextStyle(
       fontSize: TagFontSize.fontSizeInputNormal,
     );
 
@@ -99,8 +99,9 @@ class _TagTextFieldState extends State<TagTextField> {
                 onChanged: _onValueChanged,
                 onEditingComplete: () {
                   _onValueChanged(_controller.text);
-                  if (widget.onEditingComplete != null)
+                  if (widget.onEditingComplete != null) {
                     widget.onEditingComplete!();
+                  }
                 }),
           ),
         ],

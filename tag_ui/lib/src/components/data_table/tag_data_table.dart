@@ -53,7 +53,7 @@ class _TagTable extends StatelessWidget {
                   columns: columns,
                 ),
               ),
-              Divider(
+              const Divider(
                 height: 1,
                 color: TagColors.colorBaseInkLight,
               ),
@@ -133,7 +133,7 @@ class _TableHead extends StatelessWidget {
   Widget build(BuildContext context) {
     final headers = columns.map((e) => _Header(child: e.label)).toList();
     return Row(
-      children: [...headers, SizedBox(width: 50)],
+      children: [...headers, const SizedBox(width: 50)],
     );
   }
 }
@@ -171,7 +171,7 @@ class _TableRow extends StatelessWidget {
                     children: children,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 50,
                   child: Icon(Icons.keyboard_arrow_right),
                 )
@@ -195,7 +195,7 @@ class _Cell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: EdgeInsets.all(6),
+        padding: const EdgeInsets.all(6),
         child: child,
       ),
     );
@@ -213,7 +213,7 @@ class _Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 12),
         child: child,
       ),
     );

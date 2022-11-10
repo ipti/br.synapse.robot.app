@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ToggleMobileDesktop extends StatelessWidget {
-  ToggleMobileDesktop({
+  const ToggleMobileDesktop({
     Key? key,
     required this.mobile,
     required this.desktop,

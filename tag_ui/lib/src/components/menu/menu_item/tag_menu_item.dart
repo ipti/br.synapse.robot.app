@@ -40,17 +40,15 @@ class TagMenuItem extends StatelessWidget implements ITagMenuItem {
       return Stack(
         alignment: Alignment.centerLeft,
         children: [
-          Container(
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                height: 24,
-                width: 4,
-                decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.horizontal(right: Radius.circular(8)),
-                  color: indicatorColor,
-                ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              height: 24,
+              width: 4,
+              decoration: BoxDecoration(
+                borderRadius:
+                    const BorderRadius.horizontal(right: Radius.circular(8)),
+                color: indicatorColor,
               ),
             ),
           ),
@@ -83,7 +81,7 @@ class TagMenuItem extends StatelessWidget implements ITagMenuItem {
                           ),
                         ),
                       ),
-                      Icon(Icons.chevron_right)
+                      const Icon(Icons.chevron_right)
                     ],
                   ),
                 ),

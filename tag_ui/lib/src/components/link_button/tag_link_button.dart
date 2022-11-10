@@ -18,11 +18,11 @@ class TagLinkButton extends StatelessWidget {
     );
 
     final elevatedButtonTheme = TextButton.styleFrom(
+      foregroundColor: TagColors.colorBaseProductNormal,
       elevation: 0,
       textStyle: textStyle,
       padding: TagSpancing.paddingButtonNormal,
-      minimumSize: Size(double.infinity, TagSizes.heightButtonNormal),
-      primary: TagColors.colorBaseProductNormal,
+      minimumSize: const Size(double.infinity, TagSizes.heightButtonNormal),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(
@@ -32,12 +32,10 @@ class TagLinkButton extends StatelessWidget {
       ),
     );
 
-    return Container(
-      child: TextButton(
-        child: Text(text),
-        onPressed: onPressed as void Function()?,
-        style: elevatedButtonTheme,
-      ),
+    return TextButton(
+      child: Text(text),
+      onPressed: onPressed as void Function()?,
+      style: elevatedButtonTheme,
     );
   }
 }

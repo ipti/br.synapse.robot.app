@@ -42,21 +42,19 @@ class _LayoutPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Flexible(flex: 4, child: left ?? Container()),
-          Flexible(
-            flex: right != null ? 12 : 16,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: center,
-            ),
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Flexible(flex: 4, child: left ?? Container()),
+        Flexible(
+          flex: right != null ? 12 : 16,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: center,
           ),
-          if (right != null) Flexible(flex: 4, child: right ?? Container()),
-        ],
-      ),
+        ),
+        if (right != null) Flexible(flex: 4, child: right ?? Container()),
+      ],
     );
   }
 }

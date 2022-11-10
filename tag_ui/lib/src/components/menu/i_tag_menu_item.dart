@@ -1,3 +1,5 @@
 import 'package:flutter/widgets.dart';
 
-abstract class ITagMenuItem extends Widget {}
+abstract class ITagMenuItem extends Widget {
+  const ITagMenuItem({Key? key}) : super(key: key);
+}

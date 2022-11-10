@@ -36,7 +36,7 @@ class _TagNumberFieldState extends State<TagNumberField> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: 100, maxWidth: 170),
+          constraints: const BoxConstraints(maxHeight: 100, maxWidth: 170),
           child: Row(
             children: [
               Expanded(
@@ -53,10 +53,11 @@ class _TagNumberFieldState extends State<TagNumberField> {
                 child: _TextNumberField(
                   controller: controller,
                   onChanged: (String value) {
-                    if (value.isNotEmpty)
+                    if (value.isNotEmpty) {
                       counter.value = int.parse(value);
-                    else
+                    } else {
                       counter.value = 0;
+                    }
                   },
                 ),
               ),
@@ -91,13 +92,13 @@ class _TextNumberField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      style: TextStyle(fontWeight: FontWeight.bold),
+      style: const TextStyle(fontWeight: FontWeight.bold),
       keyboardType: TextInputType.number,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,
       textInputAction: TextInputAction.done,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.never,
         filled: false,
         border: InputBorder.none,
@@ -124,7 +125,7 @@ class _NumberFieldButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         minWidth: 40,
         maxWidth: 40,
         minHeight: 40,

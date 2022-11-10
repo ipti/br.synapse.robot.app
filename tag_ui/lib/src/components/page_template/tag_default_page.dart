@@ -50,7 +50,7 @@ class TagDefaultPage extends StatelessWidget {
                   ),
                   Text(
                     description,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: TagColors.colorBaseInkLight,
                     ),
                   ),

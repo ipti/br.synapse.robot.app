@@ -7,7 +7,7 @@ import '../shared/field_constraints.dart';
 import '../shared/tag_input_decoration.dart';
 
 class TagDatePickerField extends StatefulWidget {
-  TagDatePickerField({
+  const TagDatePickerField({
     Key? key,
     this.hint,
     this.controller,

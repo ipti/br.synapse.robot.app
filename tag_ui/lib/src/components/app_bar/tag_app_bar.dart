@@ -13,7 +13,7 @@ class TagAppBar extends StatelessWidget implements PreferredSize {
       size: 24,
     );
 
-    final Widget leading = new IconButton(
+    final Widget leading = IconButton(
       icon: const Icon(
         Icons.menu,
         size: 24.0,

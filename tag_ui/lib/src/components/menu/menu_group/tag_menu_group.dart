@@ -36,7 +36,7 @@ class TagMenuGroup extends StatelessWidget implements ITagMenuItem {
 
     return Stack(
       children: [
-        Container(
+        SizedBox(
           height: 48,
           child: Align(
             alignment: Alignment.centerLeft,
@@ -45,7 +45,7 @@ class TagMenuGroup extends StatelessWidget implements ITagMenuItem {
               width: 4,
               decoration: BoxDecoration(
                 borderRadius:
-                    BorderRadius.horizontal(right: Radius.circular(8)),
+                    const BorderRadius.horizontal(right: Radius.circular(8)),
                 color: indicatorColor,
               ),
             ),
@@ -62,7 +62,7 @@ class TagMenuGroup extends StatelessWidget implements ITagMenuItem {
               title,
               style: textStyle,
             ),
-            children: [
+            children: const [
               // for (var i = 0; i < submenus.length; i++)
               //   submenus[i].copyWith(
               //     isActive: routeActiveItem == submenus[i].route,

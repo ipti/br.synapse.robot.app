@@ -21,7 +21,7 @@ class TagBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         constraints: BoxConstraints(minHeight: minHeight, minWidth: minWidth),
-        padding: padding ?? EdgeInsets.all(8),
+        padding: padding ?? const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: background,
           borderRadius: BorderRadius.circular(

@@ -47,7 +47,7 @@ class Heading extends StatelessWidget {
       fontWeight: TagFontWeight.fontWeightHeadingTitle1,
     );
 
-    TextStyle textStyleTitle2 = TextStyle(
+    TextStyle textStyleTitle2 = const TextStyle(
       color: TagColors.colorBaseCloudLightActive,
       fontSize: TagFontSize.fontSizeHeadingTitle2,
       fontWeight: TagFontWeight.fontWeightHeadingTitle2,
@@ -96,11 +96,9 @@ class Heading extends StatelessWidget {
         style = textStyleDefault;
     }
 
-    return Container(
-      child: Text(
-        text,
-        style: style,
-      ),
+    return Text(
+      text,
+      style: style,
     );
   }
 }

@@ -20,20 +20,20 @@ class TagBreadcrumbItem extends StatefulWidget {
 }
 
 class _TagBreadcrumbItemState extends State<TagBreadcrumbItem> {
-  final textStyle = TextStyle(
+  final textStyle = const TextStyle(
     fontWeight: TagFontWeight.fontWeightLinks,
     fontSize: TagFontSize.fontSizeTextNormal,
     color: TagColors.colorBaseProductNormal,
     // decoration: TextDecoration.underline,
   );
 
-  final textStyleHover = TextStyle(
+  final textStyleHover = const TextStyle(
     fontWeight: TagFontWeight.fontWeightLinks,
     fontSize: TagFontSize.fontSizeTextNormal,
     color: TagColors.colorBaseProductNormal,
   );
 
-  final textStylActive = TextStyle(
+  final textStylActive = const TextStyle(
     fontWeight: TagFontWeight.fontWeightBold,
     fontSize: TagFontSize.fontSizeTextNormal,
     color: TagColors.colorBaseProductNormal,

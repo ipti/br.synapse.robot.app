@@ -40,9 +40,6 @@ class Joystick extends StatefulWidget {
 }
 
 class _JoystickState extends State<Joystick> {
-  double _x = 0;
-  double _y = 0;
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -137,10 +134,7 @@ class _JoystickState extends State<Joystick> {
                       // ),
                       onPanUpdate: (values) {
                         if (widget.isDraggable == true) {
-                          setState(() {
-                            _x -= values.delta.dx;
-                            _y -= values.delta.dy;
-                          });
+                          setState(() {});
                         }
                       },
                     ),

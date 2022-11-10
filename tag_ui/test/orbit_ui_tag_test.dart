@@ -19,7 +19,7 @@ void main() {
   group("TagTextField: ", () {
     testWidgets("Render test", (WidgetTester tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Material(
             child: Center(
               child: TagTextField(
@@ -54,7 +54,7 @@ void main() {
 
       await tester.enterText(find.byKey(key), 'Soup');
 
-      await tester.pump(Duration(milliseconds: 250));
+      await tester.pump(const Duration(milliseconds: 250));
 
       expect(value, 'Soup');
     });
@@ -81,7 +81,7 @@ void main() {
 
       await tester.testTextInput.receiveAction(TextInputAction.done);
 
-      await tester.pump(Duration(milliseconds: 250));
+      await tester.pump(const Duration(milliseconds: 250));
 
       expect(value, 'Soup');
     });

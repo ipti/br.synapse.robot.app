@@ -14,7 +14,7 @@ class LayoutTopBarAndBody extends StatelessWidget {
     return Scaffold(
       backgroundColor: TagColors.colorBaseWhiteNormal,
       drawer: drawer,
-      appBar: TagAppBar(),
+      appBar: const TagAppBar(),
       body: body,
     );
   }
