@@ -16,40 +16,22 @@ class ShapePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint()
-      ..color = Colors.teal
-      ..strokeWidth = 5
-      ..strokeCap = StrokeCap.round;
+      ..color = const Color(0xFF4B4D52)
+      ..strokeWidth = 5;
 
     var path = Path();
-    path.lineTo(0, size.height / 2);
-    path.lineTo(size.width / 2, size.height);
-    path.lineTo(size.width, size.height / 2);
-    path.lineTo(0, size.height / 2);
-    path.close();
+    final segmentWidth = size.width / 3 / 2;
+    path.moveTo(0, 0);
+    path.cubicTo(segmentWidth, 0, 2 * segmentWidth, size.height / 2,
+        3 * segmentWidth, size.height / 2);
+    path.cubicTo(4 * segmentWidth, size.height / 2, 5 * segmentWidth, 0,
+        6 * segmentWidth, 0);
     canvas.drawPath(path, paint);
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return false;
-  }
-}
-
-class TsClip2 extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-    path.lineTo(0, size.height / 2);
-    path.lineTo(size.width / 2, size.height);
-    path.lineTo(size.width, size.height / 2);
-    path.lineTo(0, size.height / 2);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return true;
   }
 }
 
@@ -137,89 +119,73 @@ class Comandos extends StatelessWidget {
       children: [
         IntrinsicHeight(
           child: Container(
-            padding: const EdgeInsets.all(0),
+            padding: const EdgeInsets.all(2),
             margin: const EdgeInsets.only(
                 left: 20.0, right: 20.0, top: 20, bottom: 0),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: const LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Color(0xFF9CE6FF), Color(0xC3AC6AFF)])),
-            width: 370,
-            height: 200,
-            child: Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                controller: _scrollController,
-                scrollDirection: Axis.horizontal,
-                itemCount: icones.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onLongPress: () {
-                      cubit.removerComandos(
-                          listaComandos: icones, index: icones.length - 1);
-                    },
-                    child: Center(
-                      child: Container(
-                        width: 75,
-                        height: 70,
-                        alignment: Alignment.topCenter,
-                        margin: const EdgeInsets.symmetric(horizontal: 2),
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        decoration: BoxDecoration(
-                          color: const Color(0xBD2918F1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Icon(
-                          icones[icones.length - index - 1],
-                          color: const Color(0xFFFFFFFF),
-                          size: 64,
+              color: const Color.fromARGB(255, 75, 77, 82),
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            child: Container(
+              padding: const EdgeInsets.all(0),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 43, 46, 53),
+                border: const Border(
+                  top: BorderSide(
+                      color: Color.fromARGB(255, 75, 77, 82), width: 4),
+                  left: BorderSide(
+                      color: Color.fromARGB(255, 75, 77, 82), width: 4),
+                  right: BorderSide(
+                      color: Color.fromARGB(255, 75, 77, 82), width: 4),
+                ),
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              width: 370,
+              height: 200,
+              child: Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  controller: _scrollController,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: icones.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onLongPress: () {
+                        cubit.removerComandos(
+                            listaComandos: icones, index: icones.length - 1);
+                      },
+                      child: Center(
+                        child: Container(
+                          width: 75,
+                          height: 70,
+                          alignment: Alignment.topCenter,
+                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          decoration: BoxDecoration(
+                            color: const Color(0xBD2918F1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Icon(
+                            icones[icones.length - index - 1],
+                            color: const Color(0xFFFFFFFF),
+                            size: 64,
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
           ),
         ),
-        CustomPaint(
-          painter: ShapePainter(),
-          child: Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              gradient: const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xC3AC6AFF),
-                  Color(0xC3843CDB),
-                ],
-              ),
-            ),
+        Container(
+          width: 70,
+          height: 40,
+          child: CustomPaint(
+            painter: ShapePainter(),
           ),
-        ),
-        // ClipPath(
-        //   clipper: TsClip2(),
-        //   child: Container(
-        //     width: 50,
-        //     height: 50,
-        //     decoration: BoxDecoration(
-        //       borderRadius: BorderRadius.circular(10),
-        //       gradient: const LinearGradient(
-        //         begin: Alignment.topCenter,
-        //         end: Alignment.bottomCenter,
-        //         colors: [
-        //           Color(0xC3AC6AFF),
-        //           Color(0xC3843CDB),
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        // ),
+        )
       ],
     );
   }
