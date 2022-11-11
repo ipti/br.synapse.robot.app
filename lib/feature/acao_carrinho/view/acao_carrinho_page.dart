@@ -138,7 +138,7 @@ class Comandos extends StatelessWidget {
                   right: BorderSide(
                       color: Color.fromARGB(255, 75, 77, 82), width: 4),
                 ),
-                borderRadius: BorderRadius.circular(20.0),
+                // borderRadius: BorderRadius.circular(20.0),
               ),
               width: 370,
               height: 200,
