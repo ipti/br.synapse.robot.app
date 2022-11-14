@@ -17,7 +17,8 @@ class ShapePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     var paint = Paint()
       ..color = const Color(0xFF4B4D52)
-      ..strokeWidth = 5;
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 3;
 
     var path = Path();
     final segmentWidth = size.width / 3 / 2;
@@ -26,7 +27,14 @@ class ShapePainter extends CustomPainter {
         3 * segmentWidth, size.height / 2);
     path.cubicTo(4 * segmentWidth, size.height / 2, 5 * segmentWidth, 0,
         6 * segmentWidth, 0);
+
     canvas.drawPath(path, paint);
+    canvas.drawPath(
+      path,
+      paint
+        ..style = PaintingStyle.stroke
+        ..color = Color(0x9C353943),
+    );
   }
 
   @override
@@ -123,60 +131,60 @@ class Comandos extends StatelessWidget {
             margin: const EdgeInsets.only(
                 left: 20.0, right: 20.0, top: 20, bottom: 0),
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 75, 77, 82),
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(0),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 43, 46, 53),
-                border: const Border(
-                  top: BorderSide(
-                      color: Color.fromARGB(255, 75, 77, 82), width: 4),
-                  left: BorderSide(
-                      color: Color.fromARGB(255, 75, 77, 82), width: 4),
-                  right: BorderSide(
-                      color: Color.fromARGB(255, 75, 77, 82), width: 4),
-                ),
-                // borderRadius: BorderRadius.circular(20.0),
-              ),
-              width: 370,
-              height: 200,
-              child: Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  controller: _scrollController,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: icones.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onLongPress: () {
-                        cubit.removerComandos(
-                            listaComandos: icones, index: icones.length - 1);
-                      },
-                      child: Center(
-                        child: Container(
-                          width: 75,
-                          height: 70,
-                          alignment: Alignment.topCenter,
-                          margin: const EdgeInsets.symmetric(horizontal: 2),
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          decoration: BoxDecoration(
-                            color: const Color(0xBD2918F1),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Icon(
-                            icones[icones.length - index - 1],
-                            color: const Color(0xFFFFFFFF),
-                            size: 64,
-                          ),
+                color: const Color.fromARGB(255, 75, 77, 82),
+                borderRadius: BorderRadius.circular(20.0),
+                border: Border.all(width: 2.0, color: const Color(0x9C353943))),
+            // child: Container(
+            // padding: const EdgeInsets.all(0),
+            // decoration: BoxDecoration(
+            //   color: const Color.fromARGB(255, 43, 46, 53),
+            //   border: const Border(
+            //     top: BorderSide(
+            //         color: Color.fromARGB(255, 75, 77, 82), width: 4),
+            //     left: BorderSide(
+            //         color: Color.fromARGB(255, 75, 77, 82), width: 4),
+            //     right: BorderSide(
+            //         color: Color.fromARGB(255, 75, 77, 82), width: 4),
+            //   ),
+            //   // borderRadius: BorderRadius.circular(20.0),
+            // ),
+            width: 370,
+            height: 200,
+            child: Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                controller: _scrollController,
+                scrollDirection: Axis.horizontal,
+                itemCount: icones.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onLongPress: () {
+                      cubit.removerComandos(
+                          listaComandos: icones, index: icones.length - 1);
+                    },
+                    child: Center(
+                      child: Container(
+                        width: 75,
+                        height: 70,
+                        alignment: Alignment.topCenter,
+                        margin: const EdgeInsets.symmetric(horizontal: 2),
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xBD2918F1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Icon(
+                          icones[icones.length - index - 1],
+                          color: const Color(0xFFFFFFFF),
+                          size: 64,
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
             ),
+            // ),
           ),
         ),
         Container(
