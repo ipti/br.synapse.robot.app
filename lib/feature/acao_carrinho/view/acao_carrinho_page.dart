@@ -16,9 +16,9 @@ class ShapePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint()
-      ..color = const Color(0xFF4B4D52)
+      ..color = const Color(0xFF383A3F)
       ..style = PaintingStyle.fill
-      ..strokeWidth = 3;
+      ..strokeWidth = 2;
 
     var path = Path();
     final segmentWidth = size.width / 3 / 2;
@@ -33,7 +33,7 @@ class ShapePainter extends CustomPainter {
       path,
       paint
         ..style = PaintingStyle.stroke
-        ..color = Color(0x9C353943),
+        ..color = Color(0xFF41434B),
     );
   }
 
@@ -88,7 +88,7 @@ class _AcaoCarrinhoPageState extends State<AcaoCarrinhoPage> {
         return Container(
             alignment: Alignment.center,
             decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 50, 52, 56),
+              color: Color.fromARGB(255, 37, 38, 41),
               image: DecorationImage(
                   image: NetworkImage(
                       'https://i.pinimg.com/564x/0a/09/df/0a09df17ffcb4b3723f8c03698eeeace.jpg'),
@@ -123,78 +123,79 @@ class Comandos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<AcaoCarrinhoCubit>();
-    return Column(
-      children: [
-        IntrinsicHeight(
-          child: Container(
-            padding: const EdgeInsets.all(2),
-            margin: const EdgeInsets.only(
-                left: 20.0, right: 20.0, top: 20, bottom: 0),
-            decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 75, 77, 82),
-                borderRadius: BorderRadius.circular(20.0),
-                border: Border.all(width: 2.0, color: const Color(0x9C353943))),
-            // child: Container(
-            // padding: const EdgeInsets.all(0),
-            // decoration: BoxDecoration(
-            //   color: const Color.fromARGB(255, 43, 46, 53),
-            //   border: const Border(
-            //     top: BorderSide(
-            //         color: Color.fromARGB(255, 75, 77, 82), width: 4),
-            //     left: BorderSide(
-            //         color: Color.fromARGB(255, 75, 77, 82), width: 4),
-            //     right: BorderSide(
-            //         color: Color.fromARGB(255, 75, 77, 82), width: 4),
-            //   ),
-            //   // borderRadius: BorderRadius.circular(20.0),
-            // ),
-            width: 370,
-            height: 200,
-            child: Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                controller: _scrollController,
-                scrollDirection: Axis.horizontal,
-                itemCount: icones.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onLongPress: () {
-                      cubit.removerComandos(
-                          listaComandos: icones, index: icones.length - 1);
-                    },
-                    child: Center(
-                      child: Container(
-                        width: 75,
-                        height: 70,
-                        alignment: Alignment.topCenter,
-                        margin: const EdgeInsets.symmetric(horizontal: 2),
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        decoration: BoxDecoration(
-                          color: const Color(0xBD2918F1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Icon(
-                          icones[icones.length - index - 1],
-                          color: const Color(0xFFFFFFFF),
-                          size: 64,
+    return SizedBox(
+      height: 240,
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          IntrinsicHeight(
+            child: Container(
+              padding: const EdgeInsets.all(2),
+              margin: const EdgeInsets.only(
+                  left: 20.0, right: 20.0, top: 20, bottom: 0),
+              decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 56, 58, 63),
+                  borderRadius: BorderRadius.circular(20.0),
+                  border: Border.all(
+                    width: 2.0,
+                    color: const Color(0xFF41434B),
+                  )),
+              width: 370,
+              height: 200,
+              child: Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  controller: _scrollController,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: icones.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onLongPress: () {
+                        cubit.removerComandos(
+                            listaComandos: icones, index: icones.length - 1);
+                      },
+                      child: Center(
+                        child: Container(
+                          width: 75,
+                          height: 70,
+                          alignment: Alignment.topCenter,
+                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color.fromRGBO(86, 5, 160, 100),
+                                  Color.fromRGBO(161, 39, 216, 100),
+                                ]),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Icon(
+                            icones[icones.length - index - 1],
+                            color: const Color(0xFFFFFFFF),
+                            size: 64,
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
+              // ),
+            ),
+          ),
+          Positioned(
+            top: 218,
+            width: 80,
+            height: 35,
+            child: CustomPaint(
+              painter: ShapePainter(),
             ),
             // ),
           ),
-        ),
-        Container(
-          width: 70,
-          height: 40,
-          child: CustomPaint(
-            painter: ShapePainter(),
-          ),
-        )
-      ],
+        ],
+      ),
     );
   }
 }
@@ -256,8 +257,9 @@ class EnviarComandos extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<AcaoCarrinhoCubit>();
     return Container(
-      alignment: Alignment.bottomCenter,
-      height: 40,
+      // color: Colors.amber,
+      alignment: Alignment.topCenter,
+      height: 100,
       margin: const EdgeInsets.all(16),
       child: Expanded(
         child: Row(
@@ -265,22 +267,20 @@ class EnviarComandos extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ElevatedButton(
+            OutlinedButton(
               onPressed: () => cubit.enviarComands(
                 listaComandos: icones,
               ),
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(const Size(200, 50)),
-                shadowColor: MaterialStateProperty.all(const Color(0xFF757575)),
-                backgroundColor: MaterialStateProperty.all(
-                  const Color(0xFF3C40B8),
+              style: OutlinedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                foregroundColor: Colors.white,
+                side: const BorderSide(
+                  width: 2,
+                  color: Color.fromARGB(255, 91, 7, 164),
                 ),
-                textStyle: MaterialStateProperty.all(
-                  const TextStyle(fontSize: 20),
-                ),
-                overlayColor:
-                    MaterialStateProperty.all(const Color(0xFF1E216B)),
-                elevation: MaterialStateProperty.all(5),
+                textStyle: const TextStyle(fontSize: 20),
+                shape: const StadiumBorder(),
               ),
               child: const Text('Enviar Comandos'),
             ),
