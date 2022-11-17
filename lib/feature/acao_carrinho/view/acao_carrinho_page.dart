@@ -33,7 +33,7 @@ class ShapePainter extends CustomPainter {
       path,
       paint
         ..style = PaintingStyle.stroke
-        ..color = Color(0xFF41434B),
+        ..color = const Color(0xFF41434B),
     );
   }
 
@@ -257,7 +257,6 @@ class EnviarComandos extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<AcaoCarrinhoCubit>();
     return Container(
-      // color: Colors.amber,
       alignment: Alignment.topCenter,
       height: 100,
       margin: const EdgeInsets.all(16),

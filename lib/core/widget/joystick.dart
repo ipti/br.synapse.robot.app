@@ -5,8 +5,8 @@ enum Directions { up, down, right, left }
 enum JoystickModes { all, horizontal, vertical }
 
 class Joystick extends StatefulWidget {
-  final double? sizeIcon;
   final Color? backgroundColor;
+  final double sizeIcon;
   final Color? iconColor;
   final double? opacity;
   final double size;
@@ -21,7 +21,7 @@ class Joystick extends StatefulWidget {
   //
   const Joystick(
       {super.key,
-      this.sizeIcon,
+      this.sizeIcon = 50,
       this.backgroundColor,
       this.iconColor,
       this.opacity,
@@ -39,7 +39,28 @@ class Joystick extends StatefulWidget {
   _JoystickState createState() => _JoystickState();
 }
 
-class _JoystickState extends State<Joystick> {
+class _JoystickState extends State<Joystick>
+    with SingleTickerProviderStateMixin {
+  late Animation<double> animation;
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    controller = AnimationController(
+        duration: const Duration(milliseconds: 100), vsync: this);
+    animation = CurvedAnimation(parent: controller, curve: Curves.bounceInOut)
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          controller.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          controller.forward();
+        }
+      });
+    controller.forward();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -78,21 +99,11 @@ class _JoystickState extends State<Joystick> {
                   Expanded(
                     child: (widget.joystickMode == JoystickModes.horizontal)
                         ? const SizedBox()
-                        : IconButton(
-                            padding: const EdgeInsets.all(0),
-                            icon: Icon(
-                              Icons.keyboard_arrow_up,
-                              color: widget.iconColor ?? Colors.black,
-                              size: widget.sizeIcon,
-                            ),
-                            onPressed: () {
-                              if (widget.onUpPressed != null) {
-                                widget.onUpPressed!();
-                              }
-                              if (widget.onPressed != null) {
-                                widget.onPressed!(Directions.up);
-                              }
-                            },
+                        : ArrowButton(
+                            icon: Icons.arrow_upward,
+                            onTap: widget.onUpPressed!,
+                            animation: animation,
+                            sizeIcon: 50,
                           ),
                   ),
                   const Expanded(
@@ -199,6 +210,37 @@ class _JoystickState extends State<Joystick> {
           ]),
         )
       ],
+    );
+  }
+}
+
+class ArrowButton extends AnimatedWidget {
+  ArrowButton({
+    super.key,
+    required this.icon,
+    required this.sizeIcon,
+    this.iconColor,
+    required this.onTap,
+    required Animation<double> animation,
+  }) : super(listenable: animation);
+
+  final IconData icon;
+  final double sizeIcon;
+  final Color? iconColor;
+  final void Function() onTap;
+  final _sizeTween = Tween<double>(begin: 0, end: 10);
+
+  @override
+  Widget build(BuildContext context) {
+    final animation = listenable as Animation<double>;
+    return IconButton(
+      padding: const EdgeInsets.all(0),
+      icon: Icon(
+        Icons.keyboard_arrow_up,
+        color: iconColor ?? Colors.black,
+        size: sizeIcon + _sizeTween.evaluate(animation),
+      ),
+      onPressed: onTap,
     );
   }
 }
