@@ -47,16 +47,14 @@ class _JoystickState extends State<Joystick>
   @override
   void initState() {
     controller = AnimationController(
-        duration: const Duration(milliseconds: 100), vsync: this);
+        duration: const Duration(milliseconds: 500), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.bounceInOut)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           controller.reverse();
-        } else if (status == AnimationStatus.dismissed) {
-          controller.forward();
-        }
+        } else if (status == AnimationStatus.dismissed) {}
       });
-    controller.forward();
+    // controller.forward();
 
     super.initState();
   }
@@ -101,7 +99,10 @@ class _JoystickState extends State<Joystick>
                         ? const SizedBox()
                         : ArrowButton(
                             icon: Icons.arrow_upward,
-                            onTap: widget.onUpPressed!,
+                            onTap: () {
+                              controller.forward();
+                              widget.onUpPressed!();
+                            },
                             animation: animation,
                             sizeIcon: 50,
                           ),
@@ -120,22 +121,31 @@ class _JoystickState extends State<Joystick>
                   Expanded(
                     child: (widget.joystickMode == JoystickModes.vertical)
                         ? const SizedBox()
-                        : IconButton(
-                            padding: const EdgeInsets.all(0),
-                            icon: Icon(
-                              Icons.keyboard_arrow_left,
-                              color: widget.iconColor ?? Colors.black,
-                              size: widget.sizeIcon,
-                            ),
-                            onPressed: () {
-                              if (widget.onLeftPressed != null) {
-                                widget.onLeftPressed!();
-                              }
-                              if (widget.onPressed != null) {
-                                widget.onPressed!(Directions.left);
-                              }
+                        : ArrowButton(
+                            icon: Icons.keyboard_arrow_left,
+                            onTap: () {
+                              controller.forward();
+                              widget.onLeftPressed!();
                             },
+                            animation: animation,
+                            sizeIcon: 50,
                           ),
+                    // : IconButton(
+                    //     padding: const EdgeInsets.all(0),
+                    //     icon: Icon(
+                    //       Icons.keyboard_arrow_left,
+                    //       color: widget.iconColor ?? Colors.black,
+                    //       size: widget.sizeIcon,
+                    //     ),
+                    //     onPressed: () {
+                    //       if (widget.onLeftPressed != null) {
+                    //         widget.onLeftPressed!();
+                    //       }
+                    //       if (widget.onPressed != null) {
+                    //         widget.onPressed!(Directions.left);
+                    //       }
+                    //     },
+                    //   ),
                   ),
                   Expanded(
                     child: GestureDetector(
@@ -153,22 +163,31 @@ class _JoystickState extends State<Joystick>
                   Expanded(
                     child: (widget.joystickMode == JoystickModes.vertical)
                         ? const SizedBox()
-                        : IconButton(
-                            padding: const EdgeInsets.all(0),
-                            icon: Icon(
-                              Icons.keyboard_arrow_right,
-                              color: widget.iconColor ?? Colors.black,
-                              size: widget.sizeIcon,
-                            ),
-                            onPressed: () {
-                              if (widget.onRightPressed != null) {
-                                widget.onRightPressed!();
-                              }
-                              if (widget.onPressed != null) {
-                                widget.onPressed!(Directions.right);
-                              }
+                        : ArrowButton(
+                            icon: Icons.keyboard_arrow_right,
+                            onTap: () {
+                              controller.forward();
+                              widget.onRightPressed!();
                             },
+                            animation: animation,
+                            sizeIcon: 50,
                           ),
+                    // : IconButton(
+                    //     padding: const EdgeInsets.all(0),
+                    //     icon: Icon(
+                    //       Icons.keyboard_arrow_right,
+                    //       color: widget.iconColor ?? Colors.black,
+                    //       size: widget.sizeIcon,
+                    //     ),
+                    //     onPressed: () {
+                    //       if (widget.onRightPressed != null) {
+                    //         widget.onRightPressed!();
+                    //       }
+                    //       if (widget.onPressed != null) {
+                    //         widget.onPressed!(Directions.right);
+                    //       }
+                    //     },
+                    //   ),
                   )
                 ],
               ),
@@ -184,22 +203,31 @@ class _JoystickState extends State<Joystick>
                   Expanded(
                     child: (widget.joystickMode == JoystickModes.horizontal)
                         ? const SizedBox()
-                        : IconButton(
-                            padding: const EdgeInsets.all(0),
-                            icon: Icon(
-                              Icons.keyboard_arrow_down,
-                              color: widget.iconColor ?? Colors.black,
-                              size: widget.sizeIcon,
-                            ),
-                            onPressed: () {
-                              if (widget.onDownPressed != null) {
-                                widget.onDownPressed!();
-                              }
-                              if (widget.onPressed != null) {
-                                widget.onPressed!(Directions.down);
-                              }
+                        : ArrowButton(
+                            icon: Icons.keyboard_arrow_down,
+                            onTap: () {
+                              controller.forward();
+                              widget.onDownPressed!();
                             },
+                            animation: animation,
+                            sizeIcon: 50,
                           ),
+                    // : IconButton(
+                    //     padding: const EdgeInsets.all(0),
+                    //     icon: Icon(
+                    //       Icons.keyboard_arrow_down,
+                    //       color: widget.iconColor ?? Colors.black,
+                    //       size: widget.sizeIcon,
+                    //     ),
+                    //     onPressed: () {
+                    //       if (widget.onDownPressed != null) {
+                    //         widget.onDownPressed!();
+                    //       }
+                    //       if (widget.onPressed != null) {
+                    //         widget.onPressed!(Directions.down);
+                    //       }
+                    //     },
+                    //   ),
                   ),
                   const Expanded(
                     child: SizedBox(),
@@ -233,14 +261,46 @@ class ArrowButton extends AnimatedWidget {
   @override
   Widget build(BuildContext context) {
     final animation = listenable as Animation<double>;
-    return IconButton(
-      padding: const EdgeInsets.all(0),
-      icon: Icon(
-        Icons.keyboard_arrow_up,
-        color: iconColor ?? Colors.black,
-        size: sizeIcon + _sizeTween.evaluate(animation),
-      ),
-      onPressed: onTap,
-    );
+    if (icon == Icons.keyboard_arrow_down) {
+      return IconButton(
+        padding: const EdgeInsets.all(0),
+        icon: Icon(
+          Icons.keyboard_arrow_down,
+          color: iconColor ?? const Color.fromARGB(255, 255, 255, 255),
+          size: sizeIcon + _sizeTween.evaluate(animation),
+        ),
+        onPressed: onTap,
+      );
+    } else if (icon == Icons.keyboard_arrow_left) {
+      return IconButton(
+        padding: const EdgeInsets.all(0),
+        icon: Icon(
+          Icons.keyboard_arrow_left,
+          color: iconColor ?? const Color.fromARGB(255, 255, 255, 255),
+          size: sizeIcon + _sizeTween.evaluate(animation),
+        ),
+        onPressed: onTap,
+      );
+    } else if (icon == Icons.keyboard_arrow_right) {
+      return IconButton(
+        padding: const EdgeInsets.all(0),
+        icon: Icon(
+          Icons.keyboard_arrow_right,
+          color: iconColor ?? const Color.fromARGB(255, 255, 255, 255),
+          size: sizeIcon + _sizeTween.evaluate(animation),
+        ),
+        onPressed: onTap,
+      );
+    } else {
+      return IconButton(
+        padding: const EdgeInsets.all(0),
+        icon: Icon(
+          Icons.keyboard_arrow_up,
+          color: iconColor ?? const Color.fromARGB(255, 255, 255, 255),
+          size: sizeIcon + _sizeTween.evaluate(animation),
+        ),
+        onPressed: onTap,
+      );
+    }
   }
 }
