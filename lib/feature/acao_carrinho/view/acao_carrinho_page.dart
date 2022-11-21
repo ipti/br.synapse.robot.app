@@ -142,45 +142,51 @@ class Comandos extends StatelessWidget {
                   )),
               width: 370,
               height: 200,
-              child: Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  controller: _scrollController,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: icones.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onLongPress: () {
-                        cubit.removerComandos(
-                            listaComandos: icones, index: icones.length - 1);
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      controller: _scrollController,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: icones.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onLongPress: () {
+                            cubit.removerComandos(
+                                listaComandos: icones,
+                                index: icones.length - 1);
+                          },
+                          child: Center(
+                            child: Container(
+                              width: 75,
+                              height: 70,
+                              alignment: Alignment.topCenter,
+                              margin: const EdgeInsets.symmetric(horizontal: 2),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Color.fromRGBO(86, 5, 160, 100),
+                                      Color.fromRGBO(161, 39, 216, 100),
+                                    ]),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Icon(
+                                icones[icones.length - index - 1],
+                                color: const Color(0xFFFFFFFF),
+                                size: 64,
+                              ),
+                            ),
+                          ),
+                        );
                       },
-                      child: Center(
-                        child: Container(
-                          width: 75,
-                          height: 70,
-                          alignment: Alignment.topCenter,
-                          margin: const EdgeInsets.symmetric(horizontal: 2),
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Color.fromRGBO(86, 5, 160, 100),
-                                  Color.fromRGBO(161, 39, 216, 100),
-                                ]),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Icon(
-                            icones[icones.length - index - 1],
-                            color: const Color(0xFFFFFFFF),
-                            size: 64,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                    ),
+                  ),
+                ],
               ),
               // ),
             ),
@@ -212,36 +218,41 @@ class CustomJoystick extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(4),
-      child: Expanded(
-        child: Center(
-          child: Joystick(
-            sizeIcon: 50,
-            size: 150,
-            isDraggable: false,
-            iconColor: const Color(0xFFFFFFFF),
-            backgroundColor: const Color(0xDA0A1745),
-            //aqui
-            opacity: 0.95,
-            joystickMode: JoystickModes.all,
-            onUpPressed: () {
-              cubit.adicionarComandos(icone: Icons.keyboard_arrow_up_rounded);
-            },
-            onLeftPressed: () {
-              cubit.adicionarComandos(
-                icone: Icons.keyboard_arrow_left_rounded,
-              );
-            },
-            onRightPressed: () {
-              cubit.adicionarComandos(
-                  icone: Icons.keyboard_arrow_right_rounded);
-            },
-            onDownPressed: () {
-              cubit.adicionarComandos(
-                icone: Icons.keyboard_arrow_down_rounded,
-              );
-            },
+      child: Row(
+        children: [
+          Expanded(
+            child: Center(
+              child: Joystick(
+                sizeIcon: 50,
+                size: 150,
+                isDraggable: false,
+                iconColor: const Color(0xFFFFFFFF),
+                backgroundColor: const Color(0xDA0A1745),
+                //aqui
+                opacity: 0.95,
+                joystickMode: JoystickModes.all,
+                onUpPressed: () {
+                  cubit.adicionarComandos(
+                      icone: Icons.keyboard_arrow_up_rounded);
+                },
+                onLeftPressed: () {
+                  cubit.adicionarComandos(
+                    icone: Icons.keyboard_arrow_left_rounded,
+                  );
+                },
+                onRightPressed: () {
+                  cubit.adicionarComandos(
+                      icone: Icons.keyboard_arrow_right_rounded);
+                },
+                onDownPressed: () {
+                  cubit.adicionarComandos(
+                    icone: Icons.keyboard_arrow_down_rounded,
+                  );
+                },
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -260,31 +271,35 @@ class EnviarComandos extends StatelessWidget {
       alignment: Alignment.topCenter,
       height: 100,
       margin: const EdgeInsets.all(16),
-      child: Expanded(
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            OutlinedButton(
-              onPressed: () => cubit.enviarComands(
-                listaComandos: icones,
-              ),
-              style: OutlinedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-                foregroundColor: Colors.white,
-                side: const BorderSide(
-                  width: 2,
-                  color: Color.fromARGB(255, 91, 7, 164),
+      child: Row(
+        children: [
+          Expanded(
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                OutlinedButton(
+                  onPressed: () => cubit.enviarComands(
+                    listaComandos: icones,
+                  ),
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 15),
+                    foregroundColor: Colors.white,
+                    side: const BorderSide(
+                      width: 2,
+                      color: Color.fromARGB(255, 91, 7, 164),
+                    ),
+                    textStyle: const TextStyle(fontSize: 20),
+                    shape: const StadiumBorder(),
+                  ),
+                  child: const Text('Enviar Comandos'),
                 ),
-                textStyle: const TextStyle(fontSize: 20),
-                shape: const StadiumBorder(),
-              ),
-              child: const Text('Enviar Comandos'),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

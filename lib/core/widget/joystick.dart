@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 enum Directions { up, down, right, left }
@@ -39,26 +40,7 @@ class Joystick extends StatefulWidget {
   _JoystickState createState() => _JoystickState();
 }
 
-class _JoystickState extends State<Joystick>
-    with SingleTickerProviderStateMixin {
-  late Animation<double> animation;
-  late AnimationController controller;
-
-  @override
-  void initState() {
-    controller = AnimationController(
-        duration: const Duration(milliseconds: 500), vsync: this);
-    animation = CurvedAnimation(parent: controller, curve: Curves.bounceInOut)
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          controller.reverse();
-        } else if (status == AnimationStatus.dismissed) {}
-      });
-    // controller.forward();
-
-    super.initState();
-  }
-
+class _JoystickState extends State<Joystick> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -76,7 +58,6 @@ class _JoystickState extends State<Joystick>
                 ]),
             color: widget.backgroundColor?.withOpacity(widget.opacity ?? 1) ??
                 Colors.grey.withOpacity(widget.opacity ?? 1),
-            // border: Border.all(),
             shape: BoxShape.circle,
             boxShadow: const [
               BoxShadow(
@@ -97,14 +78,15 @@ class _JoystickState extends State<Joystick>
                   Expanded(
                     child: (widget.joystickMode == JoystickModes.horizontal)
                         ? const SizedBox()
-                        : ArrowButton(
-                            icon: Icons.arrow_upward,
+                        : AnimetedArrow(
                             onTap: () {
-                              controller.forward();
                               widget.onUpPressed!();
                             },
-                            animation: animation,
-                            sizeIcon: 50,
+                            icon: Icon(
+                              Icons.arrow_upward,
+                              color: widget.iconColor ?? Colors.black,
+                              size: widget.sizeIcon,
+                            ),
                           ),
                   ),
                   const Expanded(
@@ -121,38 +103,19 @@ class _JoystickState extends State<Joystick>
                   Expanded(
                     child: (widget.joystickMode == JoystickModes.vertical)
                         ? const SizedBox()
-                        : ArrowButton(
-                            icon: Icons.keyboard_arrow_left,
+                        : AnimetedArrow(
                             onTap: () {
-                              controller.forward();
                               widget.onLeftPressed!();
                             },
-                            animation: animation,
-                            sizeIcon: 50,
+                            icon: Icon(
+                              Icons.keyboard_arrow_left,
+                              color: widget.iconColor ?? Colors.black,
+                              size: widget.sizeIcon,
+                            ),
                           ),
-                    // : IconButton(
-                    //     padding: const EdgeInsets.all(0),
-                    //     icon: Icon(
-                    //       Icons.keyboard_arrow_left,
-                    //       color: widget.iconColor ?? Colors.black,
-                    //       size: widget.sizeIcon,
-                    //     ),
-                    //     onPressed: () {
-                    //       if (widget.onLeftPressed != null) {
-                    //         widget.onLeftPressed!();
-                    //       }
-                    //       if (widget.onPressed != null) {
-                    //         widget.onPressed!(Directions.left);
-                    //       }
-                    //     },
-                    //   ),
                   ),
                   Expanded(
                     child: GestureDetector(
-                      // child: Icon(
-                      //   Icons.start,
-                      //   color: widget.iconColor ?? Colors.black,
-                      // ),
                       onPanUpdate: (values) {
                         if (widget.isDraggable == true) {
                           setState(() {});
@@ -163,31 +126,16 @@ class _JoystickState extends State<Joystick>
                   Expanded(
                     child: (widget.joystickMode == JoystickModes.vertical)
                         ? const SizedBox()
-                        : ArrowButton(
-                            icon: Icons.keyboard_arrow_right,
+                        : AnimetedArrow(
                             onTap: () {
-                              controller.forward();
                               widget.onRightPressed!();
                             },
-                            animation: animation,
-                            sizeIcon: 50,
+                            icon: Icon(
+                              Icons.keyboard_arrow_right,
+                              color: widget.iconColor ?? Colors.black,
+                              size: widget.sizeIcon,
+                            ),
                           ),
-                    // : IconButton(
-                    //     padding: const EdgeInsets.all(0),
-                    //     icon: Icon(
-                    //       Icons.keyboard_arrow_right,
-                    //       color: widget.iconColor ?? Colors.black,
-                    //       size: widget.sizeIcon,
-                    //     ),
-                    //     onPressed: () {
-                    //       if (widget.onRightPressed != null) {
-                    //         widget.onRightPressed!();
-                    //       }
-                    //       if (widget.onPressed != null) {
-                    //         widget.onPressed!(Directions.right);
-                    //       }
-                    //     },
-                    //   ),
                   )
                 ],
               ),
@@ -203,31 +151,16 @@ class _JoystickState extends State<Joystick>
                   Expanded(
                     child: (widget.joystickMode == JoystickModes.horizontal)
                         ? const SizedBox()
-                        : ArrowButton(
-                            icon: Icons.keyboard_arrow_down,
+                        : AnimetedArrow(
                             onTap: () {
-                              controller.forward();
                               widget.onDownPressed!();
                             },
-                            animation: animation,
-                            sizeIcon: 50,
+                            icon: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: widget.iconColor ?? Colors.black,
+                              size: widget.sizeIcon,
+                            ),
                           ),
-                    // : IconButton(
-                    //     padding: const EdgeInsets.all(0),
-                    //     icon: Icon(
-                    //       Icons.keyboard_arrow_down,
-                    //       color: widget.iconColor ?? Colors.black,
-                    //       size: widget.sizeIcon,
-                    //     ),
-                    //     onPressed: () {
-                    //       if (widget.onDownPressed != null) {
-                    //         widget.onDownPressed!();
-                    //       }
-                    //       if (widget.onPressed != null) {
-                    //         widget.onPressed!(Directions.down);
-                    //       }
-                    //     },
-                    //   ),
                   ),
                   const Expanded(
                     child: SizedBox(),
@@ -242,63 +175,101 @@ class _JoystickState extends State<Joystick>
   }
 }
 
+class AnimetedArrow extends StatefulWidget {
+  const AnimetedArrow({
+    Key? key,
+    required this.icon,
+    required this.onTap,
+  }) : super(key: key);
+
+  final Icon icon;
+  final void Function() onTap;
+
+  @override
+  State<AnimetedArrow> createState() => _AnimetedArrowState();
+}
+
+class _AnimetedArrowState extends State<AnimetedArrow>
+    with SingleTickerProviderStateMixin {
+  late Animation<double> animation;
+  late AnimationController controller;
+  final _sizeTween = Tween<double>(begin: 0, end: -20);
+
+  @override
+  void initState() {
+    controller = AnimationController(
+        duration: const Duration(milliseconds: 300), vsync: this);
+    animation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.easeIn,
+      // reverseCurve: Curves.easeInBack
+    )..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          controller.reverse();
+        } else if (status == AnimationStatus.dismissed) {}
+      });
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ArrowButton(
+      onTap: () {
+        controller.forward();
+        widget.onTap();
+      },
+      icon: widget.icon,
+      animation: animation,
+    );
+  }
+}
+
 class ArrowButton extends AnimatedWidget {
   ArrowButton({
     super.key,
     required this.icon,
-    required this.sizeIcon,
-    this.iconColor,
     required this.onTap,
     required Animation<double> animation,
   }) : super(listenable: animation);
 
-  final IconData icon;
-  final double sizeIcon;
-  final Color? iconColor;
+  final Icon icon;
   final void Function() onTap;
-  final _sizeTween = Tween<double>(begin: 0, end: 10);
+  final _sizeTween = Tween<double>(begin: 0, end: -20);
 
   @override
   Widget build(BuildContext context) {
     final animation = listenable as Animation<double>;
-    if (icon == Icons.keyboard_arrow_down) {
+    if (icon.icon == Icons.keyboard_arrow_down) {
       return IconButton(
         padding: const EdgeInsets.all(0),
-        icon: Icon(
-          Icons.keyboard_arrow_down,
-          color: iconColor ?? const Color.fromARGB(255, 255, 255, 255),
-          size: sizeIcon + _sizeTween.evaluate(animation),
-        ),
+        icon: Icon(Icons.keyboard_arrow_down,
+            color: icon.color,
+            size: icon.size! + _sizeTween.evaluate(animation)),
         onPressed: onTap,
       );
-    } else if (icon == Icons.keyboard_arrow_left) {
+    } else if (icon.icon == Icons.keyboard_arrow_left) {
       return IconButton(
         padding: const EdgeInsets.all(0),
-        icon: Icon(
-          Icons.keyboard_arrow_left,
-          color: iconColor ?? const Color.fromARGB(255, 255, 255, 255),
-          size: sizeIcon + _sizeTween.evaluate(animation),
-        ),
+        icon: Icon(Icons.keyboard_arrow_left,
+            color: icon.color,
+            size: icon.size! + _sizeTween.evaluate(animation)),
         onPressed: onTap,
       );
-    } else if (icon == Icons.keyboard_arrow_right) {
+    } else if (icon.icon == Icons.keyboard_arrow_right) {
       return IconButton(
         padding: const EdgeInsets.all(0),
-        icon: Icon(
-          Icons.keyboard_arrow_right,
-          color: iconColor ?? const Color.fromARGB(255, 255, 255, 255),
-          size: sizeIcon + _sizeTween.evaluate(animation),
-        ),
+        icon: Icon(Icons.keyboard_arrow_right,
+            color: icon.color,
+            size: icon.size! + _sizeTween.evaluate(animation)),
         onPressed: onTap,
       );
     } else {
       return IconButton(
         padding: const EdgeInsets.all(0),
-        icon: Icon(
-          Icons.keyboard_arrow_up,
-          color: iconColor ?? const Color.fromARGB(255, 255, 255, 255),
-          size: sizeIcon + _sizeTween.evaluate(animation),
-        ),
+        icon: Icon(Icons.keyboard_arrow_up,
+            color: icon.color,
+            size: icon.size! + _sizeTween.evaluate(animation)),
         onPressed: onTap,
       );
     }
